@@ -15,6 +15,8 @@ import { Label } from "@/frontend/components/ui/label";
 import { Separator } from "@/frontend/components/ui/separator";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
+import useAuthStore from "@/frontend/stores/authStore/auth";
+import { useRouter } from "next/navigation";
 
 interface SignInModalProps {
   isOpen: boolean;
@@ -26,18 +28,25 @@ export function SignInModal({ isOpen, onClose, onSignIn }: SignInModalProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const { loginUser, loading, error, user } = useAuthStore();
+  const router = useRouter();
 
-  const handleEmailSignIn = (e: React.FormEvent) => {
+  const handleEmailSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle email sign in logic here
-    onSignIn();
-    onClose();
+    await loginUser(email, password);
+
+    if (!error) {
+      onClose();
+      router.push("/dashboard");
+    }
   };
 
   const handleGoogleSignIn = () => {
-    // Handle Google sign in logic here
-    onSignIn();
-    onClose();
+    // try {
+    //   window.location.href = "/api/auth/google";
+    // } catch (error) {
+    //   console.error("Redirect failed:", error);
+    // }
   };
 
   return (

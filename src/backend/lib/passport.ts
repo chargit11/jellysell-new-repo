@@ -1,4 +1,5 @@
 import passport from "passport";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import bcrypt from "bcryptjs";
@@ -6,6 +7,8 @@ import dbConnect from "@/backend/lib/db";
 import UserModel, { User } from "@/backend/lib/models/User.model";
 
 const JWT_SECRET = process.env.JWT_SECRET || "supersecret";
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
+const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET!;
 
 passport.use(
   new LocalStrategy(
@@ -63,4 +66,35 @@ passport.use(
   )
 );
 
+passport.use(
+  new GoogleStrategy(
+    {
+      clientID: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET,
+      callbackURL: "/api/auth/google/callback",
+    },
+    async (accessToken, refreshToken, profile, done) => {
+      await dbConnect();
+      try {
+        // Check if user already exists
+        let user = await UserModel.findOne({
+          email: profile.emails?.[0].value,
+        });
+
+        if (!user) {
+          user = await UserModel.create({
+            username: profile.displayName,
+            email: profile.emails?.[0].value,
+            password: "google-oauth", // not used, but required by schema
+            role: "user",
+          });
+        }
+
+        return done(null, user);
+      } catch (err) {
+        return done(err as Error, false);
+      }
+    }
+  )
+);
 export default passport;
