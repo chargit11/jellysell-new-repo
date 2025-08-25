@@ -1,14 +1,14 @@
 "use client";
 
-import { Button } from "@/frontend/components/ui/button";
+import { Button } from "@/frontend/core/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/frontend/components/ui/card";
-import { Badge } from "@/frontend/components/ui/badge";
+} from "@/frontend/core/components/ui/card";
+import { Badge } from "@/frontend/core/components/ui/badge";
 import {
   ArrowRight,
   BarChart3,

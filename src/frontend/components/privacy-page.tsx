@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@/frontend/components/ui/button";
+import { Button } from "@/frontend/core/components/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/frontend/components/ui/card";
+} from "@/frontend/core/components/ui/card";
 import { Eye, Lock, Users, FileText, Mail, Shield } from "lucide-react";
 import Image from "next/image";
 

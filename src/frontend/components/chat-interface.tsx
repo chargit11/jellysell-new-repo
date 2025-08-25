@@ -3,15 +3,15 @@
 import type React from "react";
 
 import { useState } from "react";
-import { Button } from "@/frontend/components/ui/button";
-import { Textarea } from "@/frontend/components/ui/textarea";
+import { Button } from "@/frontend/core/components/ui/button";
+import { Textarea } from "@/frontend/core/components/ui/textarea";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/frontend/components/ui/avatar";
-import { Badge } from "@/frontend/components/ui/badge";
-import { Separator } from "@/frontend/components/ui/separator";
+} from "@/frontend/core/components/ui/avatar";
+import { Badge } from "@/frontend/core/components/ui/badge";
+import { Separator } from "@/frontend/core/components/ui/separator";
 import {
   Trash2,
   MailOpen,
@@ -28,7 +28,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/frontend/components/ui/dropdown-menu";
+} from "@/frontend/core/components/ui/dropdown-menu";
 
 interface Message {
   id: string;

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Badge } from "@/frontend/components/ui/badge";
-import { Button } from "@/frontend/components/ui/button";
+import { Badge } from "@/frontend/core/components/ui/badge";
+import { Button } from "@/frontend/core/components/ui/button";
 import {
   Table,
   TableBody,
@@ -10,15 +10,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/frontend/components/ui/table";
-import { Checkbox } from "@/frontend/components/ui/checkbox";
+} from "@/frontend/core/components/ui/table";
+import { Checkbox } from "@/frontend/core/components/ui/checkbox";
 import { Filter, ChevronDown, AlertTriangle } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/frontend/components/ui/dropdown-menu";
+} from "@/frontend/core/components/ui/dropdown-menu";
 import Image from "next/image";
 
 const actionNeededCategories = [

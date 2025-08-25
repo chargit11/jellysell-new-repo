@@ -8,11 +8,11 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/frontend/components/ui/dialog";
-import { Button } from "@/frontend/components/ui/button";
-import { Input } from "@/frontend/components/ui/input";
-import { Label } from "@/frontend/components/ui/label";
-import { Separator } from "@/frontend/components/ui/separator";
+} from "@/frontend/core/components/ui/dialog";
+import { Button } from "@/frontend/core/components/ui/button";
+import { Input } from "@/frontend/core/components/ui/input";
+import { Label } from "@/frontend/core/components/ui/label";
+import { Separator } from "@/frontend/core/components/ui/separator";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import useAuthStore from "@/frontend/stores/authStore/auth";

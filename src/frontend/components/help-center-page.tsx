@@ -1,12 +1,12 @@
 "use client";
 
-import { Button } from "@/frontend/components/ui/button";
+import { Button } from "@/frontend/core/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardTitle,
-} from "@/frontend/components/ui/card";
+} from "@/frontend/core/components/ui/card";
 import { MessageCircle, Video, HelpCircle } from "lucide-react";
 import Image from "next/image";
 

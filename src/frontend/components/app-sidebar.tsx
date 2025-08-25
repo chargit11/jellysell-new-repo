@@ -10,7 +10,7 @@ import {
   Menu,
   LogOut,
 } from "lucide-react";
-import { Button } from "@/frontend/components/ui/button";
+import { Button } from "@/frontend/core/components/ui/button";
 import {
   Sidebar,
   SidebarContent,
@@ -21,7 +21,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from "@/frontend/components/ui/sidebar";
+} from "@/frontend/core/components/ui/sidebar";
 import Image from "next/image";
 
 const menuItems = [

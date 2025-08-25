@@ -1,24 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/frontend/components/ui/button";
-import { Input } from "@/frontend/components/ui/input";
-import { Label } from "@/frontend/components/ui/label";
-import { Textarea } from "@/frontend/components/ui/textarea";
+import { Button } from "@/frontend/core/components/ui/button";
+import { Input } from "@/frontend/core/components/ui/input";
+import { Label } from "@/frontend/core/components/ui/label";
+import { Textarea } from "@/frontend/core/components/ui/textarea";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/frontend/components/ui/card";
+} from "@/frontend/core/components/ui/card";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/frontend/components/ui/select";
-import { Checkbox } from "@/frontend/components/ui/checkbox";
+} from "@/frontend/core/components/ui/select";
+import { Checkbox } from "@/frontend/core/components/ui/checkbox";
 import {
   ArrowLeft,
   Upload,
@@ -31,7 +31,7 @@ import {
   MoreHorizontal,
   Info,
 } from "lucide-react";
-import { Separator } from "@/frontend/components/ui/separator";
+import { Separator } from "@/frontend/core/components/ui/separator";
 
 interface AddProductViewProps {
   onBack: () => void;

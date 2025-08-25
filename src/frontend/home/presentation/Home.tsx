@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/frontend/core/components/ui/button";
 import {
   Card,
@@ -8,161 +7,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/frontend/core/components/ui/card";
-import {
-  ArrowRight,
-  BarChart3,
-  MessageSquare,
-  Package,
-  ShoppingCart,
-  Link2,
-  Zap,
-  Heart,
-  MessageCircle,
-  Repeat2,
-  Share,
-} from "lucide-react";
+import { ArrowRight, Heart, MessageCircle, Repeat2, Share } from "lucide-react";
 import Image from "next/image";
+import { features, platforms, tweets } from "../domain/home";
 
-const features = [
-  {
-    icon: Package,
-    title: "Multi-Platform Listings",
-    description:
-      "List your products across Etsy, eBay, Depop, Poshmark, and Mercari from one dashboard.",
-  },
-  {
-    icon: MessageSquare,
-    title: "Unified Messaging",
-    description:
-      "Manage all customer messages from different platforms in one centralized inbox.",
-  },
-  {
-    icon: ShoppingCart,
-    title: "Order Management",
-    description:
-      "Track and fulfill orders from all platforms with integrated logistics support.",
-  },
-  {
-    icon: BarChart3,
-    title: "Analytics & Insights",
-    description:
-      "Get detailed performance metrics and sales analytics across all your channels.",
-  },
-  {
-    icon: Link2,
-    title: "Easy Integrations",
-    description:
-      "Connect your existing marketplace accounts with just a few clicks.",
-  },
-  {
-    icon: Zap,
-    title: "Automated Workflows",
-    description:
-      "Save time with automated listing updates, inventory sync, and more.",
-  },
-];
-
-const platforms = [
-  { name: "Etsy", logo: "/images/etsy-logo.webp" },
-  { name: "eBay", logo: "/images/ebay-logo.png" },
-  { name: "Depop", logo: "/images/depop-logo.jpeg" },
-  { name: "Poshmark", logo: "/images/poshmark-logo.webp" },
-  { name: "Mercari", logo: "/images/mercari-logo.webp" },
-];
-
-const tweets = [
-  {
-    name: "Okonomiyakeria",
-    username: "okonomiyakeria",
-    handle: "@okonomiyakeria",
-    content:
-      "I have used 4 of these 5 sites separately, but I'm now going to list my used Diesel clothing once on JellySell (http://JellySell.com) as it will go out to all of them automatically! I bet they add a few more sites over time as well.",
-    avatar: "/images/okonomiyakeria-real-avatar.jpg",
-    verified: false,
-    tweetUrl: "https://x.com/okonomiyakeria/status/1954609024487567867",
-  },
-  {
-    name: "Whirled Juice",
-    username: "WhirledJuice",
-    handle: "@WhirledJuice",
-    content:
-      "I have a couple extra blender accessories that I'll sell on http://JellySell.com. I can list them once there and automatically put them on eBay, etsy, and other sites.",
-    avatar: "/images/whirled-juice-avatar.png",
-    verified: false,
-    tweetUrl: "https://x.com/WhirledJuice/status/1954611242041299068",
-  },
-  {
-    name: "Yo's Clothes",
-    username: "YosClothes",
-    handle: "@YosClothes",
-    content:
-      "The unified messaging in @jellysell_ is what I've been looking for.     No more switching between 5 different apps to respond to customers. This is what crosslisting should be! 🤓",
-    avatar: "/images/yos-clothes-avatar.jpg",
-    verified: false,
-    tweetUrl: "https://x.com/YosClothes/status/1954617503046676874",
-  },
-];
-
-interface HomepageProps {
-  onGetStarted: () => void;
-  onSignIn: () => void;
-  onPricing: () => void;
-  onFeatures: () => void;
-  onAbout?: () => void;
-  onPrivacy?: () => void;
-  onHelpCenter?: () => void;
-  onConnectionsGuide?: () => void;
-}
-
-export function Homepage({
-  onGetStarted,
-  onSignIn,
-  onPricing,
-  onFeatures,
-  onAbout,
-  onPrivacy,
-  onHelpCenter,
-  onConnectionsGuide,
-}: HomepageProps) {
+const Home = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50">
-      {/* Header */}
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 cursor-pointer">
-              <Image
-                src="/images/new-jellysell-logo.png"
-                alt="jellysell Logo"
-                width={32}
-                height={32}
-                className="h-8 w-8"
-              />
-              <span className="text-2xl font-bold text-gray-900">
-                jellysell
-              </span>
-            </div>
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" onClick={onFeatures}>
-                Features
-              </Button>
-              <Button variant="ghost" onClick={onPricing}>
-                Pricing
-              </Button>
-              <Button variant="outline" onClick={onSignIn}>
-                Sign In
-              </Button>
-              <Button
-                className="bg-purple-600 hover:bg-purple-700"
-                onClick={onGetStarted}
-              >
-                Get Started
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
-
       {/* Hero Section */}
       <section className="py-20 px-6">
         <div className="max-w-7xl mx-auto text-center">
@@ -193,7 +44,7 @@ export function Homepage({
             <Button
               size="lg"
               className="bg-purple-600 hover:bg-purple-700 text-lg px-8 py-3"
-              onClick={onGetStarted}
+              onClick={() => {}}
             >
               Start Free - No Credit Card Required
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -593,7 +444,7 @@ export function Homepage({
             <Button
               size="lg"
               className="bg-white text-purple-600 hover:bg-gray-100 text-lg px-8 py-3"
-              onClick={onGetStarted}
+              onClick={() => {}}
             >
               Start Free
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -615,93 +466,8 @@ export function Homepage({
           </p>
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            <div>
-              <div className="flex items-center gap-2 mb-4">
-                <Image
-                  src="/images/new-jellysell-logo.png"
-                  alt="jellysell Logo"
-                  width={24}
-                  height={24}
-                  className="h-6 w-6"
-                />
-                <span className="text-xl font-bold">jellysell</span>
-              </div>
-              <p className="text-gray-400 text-sm">
-                This application uses the Etsy API but is not endorsed or
-                certified by Etsy, Inc.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-4">Product</h3>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>
-                  <a href="#" className="hover:text-white" onClick={onFeatures}>
-                    Features
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white" onClick={onPricing}>
-                    Pricing
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-4">Resources</h3>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white"
-                    onClick={onConnectionsGuide}
-                  >
-                    Help Center
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="hover:text-white"
-                    onClick={() =>
-                      (window.location.href =
-                        "mailto:support@jellysell.com?subject=Support Request")
-                    }
-                  >
-                    Contact Us
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-4">Company</h3>
-              <ul className="space-y-2 text-sm text-gray-400">
-                <li>
-                  <a href="#" className="hover:text-white" onClick={onAbout}>
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="hover:text-white" onClick={onPrivacy}>
-                    Privacy
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center text-sm text-gray-400">
-            <p>&copy; 2025 HAN-E LLC / JellySell&reg;</p>
-          </div>
-        </div>
-      </footer>
     </div>
   );
-}
+};
+
+export default Home;

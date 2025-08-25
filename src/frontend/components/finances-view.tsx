@@ -7,9 +7,9 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/frontend/components/ui/card";
-import { Button } from "@/frontend/components/ui/button";
-import { Badge } from "@/frontend/components/ui/badge";
+} from "@/frontend/core/components/ui/card";
+import { Button } from "@/frontend/core/components/ui/button";
+import { Badge } from "@/frontend/core/components/ui/badge";
 import {
   Table,
   TableBody,
@@ -17,12 +17,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/frontend/components/ui/table";
+} from "@/frontend/core/components/ui/table";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/frontend/components/ui/chart";
+} from "@/frontend/core/components/ui/chart";
 import { Line, LineChart, XAxis, YAxis, ResponsiveContainer } from "recharts";
 import {
   DollarSign,
@@ -42,7 +42,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/frontend/components/ui/dropdown-menu";
+} from "@/frontend/core/components/ui/dropdown-menu";
 import Image from "next/image";
 
 // Sample data for revenue chart (last 30 days)

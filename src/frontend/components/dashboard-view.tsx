@@ -1,12 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/frontend/components/ui/button";
+import { Button } from "@/frontend/core/components/ui/button";
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/frontend/components/ui/chart";
+} from "@/frontend/core/components/ui/chart";
 import { Line, LineChart, XAxis, YAxis, ResponsiveContainer } from "recharts";
 import { Calendar, ChevronDown, Edit3 } from "lucide-react";
 import {
@@ -14,7 +14,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/frontend/components/ui/dropdown-menu";
+} from "@/frontend/core/components/ui/dropdown-menu";
 
 // Chronological data from June 27 to July 26
 const chartData = [

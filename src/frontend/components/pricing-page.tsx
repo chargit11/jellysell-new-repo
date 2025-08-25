@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/frontend/components/ui/button";
+import { Button } from "@/frontend/core/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/frontend/components/ui/card";
-import { Badge } from "@/frontend/components/ui/badge";
+} from "@/frontend/core/components/ui/card";
+import { Badge } from "@/frontend/core/components/ui/badge";
 import {
   Check,
   Star,
@@ -29,7 +29,7 @@ import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/frontend/components/ui/collapsible";
+} from "@/frontend/core/components/ui/collapsible";
 
 const features = [
   "Connect all 5 marketplace platforms",

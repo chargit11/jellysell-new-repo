@@ -3,9 +3,9 @@
 import type React from "react";
 
 import { useState } from "react";
-import { Button } from "@/frontend/components/ui/button";
-import { Input } from "@/frontend/components/ui/input";
-import { Checkbox } from "@/frontend/components/ui/checkbox";
+import { Button } from "@/frontend/core/components/ui/button";
+import { Input } from "@/frontend/core/components/ui/input";
+import { Checkbox } from "@/frontend/core/components/ui/checkbox";
 import {
   Table,
   TableBody,
@@ -13,13 +13,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/frontend/components/ui/table";
+} from "@/frontend/core/components/ui/table";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/frontend/components/ui/dropdown-menu";
+} from "@/frontend/core/components/ui/dropdown-menu";
 import {
   Search,
   ChevronDown,

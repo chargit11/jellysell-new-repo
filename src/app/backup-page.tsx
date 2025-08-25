@@ -5,7 +5,7 @@ import { AppSidebar } from "@/frontend/components/app-sidebar";
 import {
   SidebarProvider,
   SidebarInset,
-} from "@/frontend/components/ui/sidebar";
+} from "@/frontend/core/components/ui/sidebar";
 import { ListingsView } from "@/frontend/components/listings-view";
 import { MessagesView } from "@/frontend/components/messages-view";
 import { OrdersView } from "@/frontend/components/orders-view";
@@ -18,9 +18,9 @@ import { PricingPage } from "@/frontend/components/pricing-page";
 import { FeaturesPage } from "@/frontend/components/features-page";
 import { HelpCenterPage } from "@/frontend/components/help-center-page";
 import { ConnectionsGuide } from "@/frontend/components/connections-guide";
-import { Button } from "@/frontend/components/ui/button";
+import { Button } from "@/frontend/core/components/ui/button";
 import { Search } from "lucide-react";
-import { Input } from "@/frontend/components/ui/input";
+import { Input } from "@/frontend/core/components/ui/input";
 import { AboutPage } from "@/frontend/components/about-page";
 import { PrivacyPage } from "@/frontend/components/privacy-page";
 import { SignInModal } from "@/frontend/components/sign-in-modal";

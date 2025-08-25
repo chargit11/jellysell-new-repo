@@ -8,23 +8,23 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-} from "@/frontend/components/ui/dialog";
-import { Button } from "@/frontend/components/ui/button";
-import { Input } from "@/frontend/components/ui/input";
+} from "@/frontend/core/components/ui/dialog";
+import { Button } from "@/frontend/core/components/ui/button";
+import { Input } from "@/frontend/core/components/ui/input";
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@/frontend/components/ui/avatar";
-import { Badge } from "@/frontend/components/ui/badge";
+} from "@/frontend/core/components/ui/avatar";
+import { Badge } from "@/frontend/core/components/ui/badge";
 import { Send, Paperclip, MoreVertical, X } from "lucide-react";
-import { ScrollArea } from "@/frontend/components/ui/scroll-area";
+import { ScrollArea } from "@/frontend/core/components/ui/scroll-area";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/frontend/components/ui/dropdown-menu";
+} from "@/frontend/core/components/ui/dropdown-menu";
 
 interface Message {
   id: string;

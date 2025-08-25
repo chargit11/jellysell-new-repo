@@ -3,10 +3,10 @@
 import type React from "react";
 
 import { useState, useEffect, useRef } from "react";
-import { Button } from "@/frontend/components/ui/button";
-import { Input } from "@/frontend/components/ui/input";
-import { Textarea } from "@/frontend/components/ui/textarea";
-import { Checkbox } from "@/frontend/components/ui/checkbox";
+import { Button } from "@/frontend/core/components/ui/button";
+import { Input } from "@/frontend/core/components/ui/input";
+import { Textarea } from "@/frontend/core/components/ui/textarea";
+import { Checkbox } from "@/frontend/core/components/ui/checkbox";
 import {
   Search,
   ChevronDown,
@@ -23,7 +23,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/frontend/components/ui/dropdown-menu";
+} from "@/frontend/core/components/ui/dropdown-menu";
 import Image from "next/image";
 
 interface Message {
