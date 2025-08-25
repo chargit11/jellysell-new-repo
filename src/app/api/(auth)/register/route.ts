@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import connect from "@/backend/lib/db";
-import User from "@/backend/lib/modals/user";
+import User from "@/backend/lib/models/user";
 
 export const POST = async (request: Request) => {
   try {
