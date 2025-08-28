@@ -3,8 +3,9 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import { Strategy as LocalStrategy } from "passport-local";
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt";
 import bcrypt from "bcryptjs";
-import dbConnect from "@/backend/lib/db";
-import UserModel, { User } from "@/backend/lib/models/User.model";
+// import dbConnect from "@/backend/lib/db";
+// import UserModel, { User } from "@/backend/lib/models/User.model";
+import prisma from "@/backend/lib/prisma";
 
 const JWT_SECRET = process.env.JWT_SECRET || "supersecret";
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID!;
@@ -14,9 +15,10 @@ passport.use(
   new LocalStrategy(
     { usernameField: "email" },
     async (email: string, password: string, done) => {
-      await dbConnect();
+      // await dbConnect();
       try {
-        const user = await UserModel.findOne({ email });
+        // const user = await UserModel.findOne({ email });
+        const user = await prisma.user.findUnique({ where: { email } });
         if (!user) return done(null, false, { message: "User not found" });
 
         const isMatch = await bcrypt.compare(password, user.password);
@@ -52,9 +54,13 @@ passport.use(
     },
     async (payload: { id: string }, done) => {
       console.log("JWT payload received:", payload);
-      await dbConnect();
+      // await dbConnect();
       try {
-        const user = await UserModel.findById(payload.id).select("-password");
+        // const user = await UserModel.findById(payload.id).select("-password");
+        const user = await prisma.user.findUnique({
+          where: { id: payload.id },
+          select: { id: true, email: true, username: true, role: true },
+        });
         console.log("User from DB:", user);
         if (!user) return done(null, false);
         return done(null, user);
@@ -74,19 +80,24 @@ passport.use(
       callbackURL: "/api/auth/google/callback",
     },
     async (accessToken, refreshToken, profile, done) => {
-      await dbConnect();
+      // await dbConnect();
       try {
         // Check if user already exists
-        let user = await UserModel.findOne({
-          email: profile.emails?.[0].value,
+        // let user = await UserModel.findOne({
+        //   email: profile.emails?.[0].value,
+        // });
+        let user = await prisma.user.findUnique({
+          where: { email: profile.emails?.[0].value },
         });
 
         if (!user) {
-          user = await UserModel.create({
-            username: profile.displayName,
-            email: profile.emails?.[0].value,
-            password: "google-oauth", // not used, but required by schema
-            role: "user",
+          user = await prisma.user.create({
+            data: {
+              username: profile.displayName,
+              email: profile.emails?.[0].value!,
+              password: "google-oauth", // placeholder, not used
+              role: "USER",
+            },
           });
         }
 

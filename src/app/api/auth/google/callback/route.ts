@@ -16,7 +16,7 @@ export async function GET(req: Request) {
         );
       }
 
-      const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, {
+      const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, {
         expiresIn: "1d",
       });
 
