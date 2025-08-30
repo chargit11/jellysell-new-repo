@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { Button } from "./ui/button";
 
@@ -19,20 +20,17 @@ const Navbar = () => {
             <span className="text-2xl font-bold text-gray-900">jellysell</span>
           </div>
           <div className="flex items-center gap-4">
-            <Button variant="ghost" onClick={() => {}}>
-              Features
+            <Button variant="ghost" asChild>
+              <Link href="/feature">Features</Link>
             </Button>
-            <Button variant="ghost" onClick={() => {}}>
-              Pricing
+            <Button variant="ghost" asChild>
+              <Link href="/pricing">Pricing</Link>
             </Button>
-            <Button variant="outline" onClick={() => {}}>
-              Sign In
+            <Button variant="outline" asChild>
+              <Link href="/login">Sign In</Link>
             </Button>
-            <Button
-              className="bg-purple-600 hover:bg-purple-700"
-              onClick={() => {}}
-            >
-              Get Started
+            <Button className="bg-purple-600 hover:bg-purple-700" asChild>
+              <Link href="/signup">Get Started</Link>
             </Button>
           </div>
         </div>
