@@ -14,7 +14,7 @@ const feature = () => {
   };
 
   return (
-    <div>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-blue-50">
       <HeroSection onGetStarted={handleGetStarted} />
       <PlatformsSection />
       <BenefitsSection />

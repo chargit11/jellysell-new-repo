@@ -65,6 +65,173 @@ export function HeroSection({ onGetStarted }: HeroSectionProps) {
           ))}
         </div>
       </div>
+      <style jsx>{`
+        .spread-text {
+          position: relative;
+          display: inline-block;
+        }
+
+        .letter {
+          display: inline-block;
+          transition: color 0.3s ease;
+          color: #374151;
+        }
+
+        .knife {
+          position: absolute;
+          top: 50%;
+          left: -30px;
+          font-size: 24px;
+          transform: translateY(-50%) rotate(-90deg);
+          animation: knifeMove 6s ease-in-out infinite;
+          z-index: 10;
+        }
+
+        @keyframes knifeMove {
+          0% {
+            left: -30px;
+          }
+          25% {
+            left: calc(100% + 10px);
+          }
+          50% {
+            left: calc(100% + 10px);
+          }
+          75% {
+            left: -30px;
+          }
+          100% {
+            left: -30px;
+          }
+        }
+
+        /* Letter color changes - forward pass */
+        .letter:nth-child(1) {
+          animation: letterColor1 6s ease-in-out infinite;
+        }
+
+        @keyframes letterColor1 {
+          0%,
+          100% {
+            color: #8b5cf6;
+          }
+        }
+
+        .letter:nth-child(2) {
+          animation: letterColor2 6s ease-in-out infinite;
+        }
+
+        .letter:nth-child(3) {
+          animation: letterColor3 6s ease-in-out infinite;
+        }
+
+        .letter:nth-child(4) {
+          animation: letterColor4 6s ease-in-out infinite;
+        }
+
+        .letter:nth-child(5) {
+          animation: letterColor5 6s ease-in-out infinite;
+        }
+
+        .letter:nth-child(6) {
+          animation: letterColor6 6s ease-in-out infinite;
+        }
+
+        @keyframes letterColor2 {
+          0%,
+          8% {
+            color: #374151;
+          }
+          11%,
+          42% {
+            color: #8b5cf6;
+          }
+          45%,
+          67% {
+            color: #8b5cf6;
+          }
+          70%,
+          100% {
+            color: #374151;
+          }
+        }
+
+        @keyframes letterColor3 {
+          0%,
+          11% {
+            color: #374151;
+          }
+          14%,
+          42% {
+            color: #8b5cf6;
+          }
+          45%,
+          64% {
+            color: #8b5cf6;
+          }
+          67%,
+          100% {
+            color: #374151;
+          }
+        }
+
+        @keyframes letterColor4 {
+          0%,
+          14% {
+            color: #374151;
+          }
+          17%,
+          42% {
+            color: #8b5cf6;
+          }
+          45%,
+          61% {
+            color: #8b5cf6;
+          }
+          64%,
+          100% {
+            color: #374151;
+          }
+        }
+
+        @keyframes letterColor5 {
+          0%,
+          17% {
+            color: #374151;
+          }
+          20%,
+          42% {
+            color: #8b5cf6;
+          }
+          45%,
+          58% {
+            color: #8b5cf6;
+          }
+          61%,
+          100% {
+            color: #374151;
+          }
+        }
+
+        @keyframes letterColor6 {
+          0%,
+          20% {
+            color: #374151;
+          }
+          23%,
+          42% {
+            color: #8b5cf6;
+          }
+          45%,
+          55% {
+            color: #8b5cf6;
+          }
+          58%,
+          100% {
+            color: #374151;
+          }
+        }
+      `}</style>
     </section>
   );
 }
