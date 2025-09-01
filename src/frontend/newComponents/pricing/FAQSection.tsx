@@ -37,7 +37,7 @@ export function FAQSection() {
                   variant="ghost"
                   className="w-full justify-between p-6 h-auto text-left bg-white hover:bg-gray-50 border rounded-lg"
                 >
-                  <span className="font-semibold text-gray-900">
+                  <span className="font-semibold text-gray-900 break-words whitespace-normal">
                     {faq.question}
                   </span>
                   {openFaq === index ? (

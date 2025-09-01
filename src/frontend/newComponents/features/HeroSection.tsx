@@ -21,11 +21,20 @@ export function HeroSection({ onGetStarted }: { onGetStarted: () => void }) {
           Everything you need to scale your business
         </Badge>
 
-        <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-          Powerful features for
-          <br />
-          <span className="text-purple-600">modern sellers</span>
-        </h1>
+        <h1
+  className="
+    text-3xl sm:text-4xl md:text-5xl lg:text-6xl 
+    font-bold text-gray-900 
+    mb-6 
+    leading-snug sm:leading-tight md:leading-tight
+    text-center 
+  "
+>
+  Powerful features for
+  <br />
+  <span className="text-purple-600">modern sellers</span>
+</h1>
+
 
         <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
           From listing management to order fulfillment, JellySell® provides all
@@ -55,14 +64,24 @@ export function HeroSection({ onGetStarted }: { onGetStarted: () => void }) {
           ))}
         </div>
 
-        <Button
-          size="lg"
-          className="bg-purple-600 hover:bg-purple-700 text-lg px-8 py-3"
-          onClick={onGetStarted}
-        >
-          Start Free - No Credit Card Required
-          <ArrowRight className="ml-2 h-5 w-5" />
-        </Button>
+        <div className="flex items-center justify-center mb-12">
+          <Button
+            size="lg"
+            className="
+            bg-purple-600 hover:bg-purple-700 
+            text-base sm:text-lg md:text-xl 
+            px-4 sm:px-6 md:px-8 
+            py-2 sm:py-3"
+            onClick={onGetStarted}
+          >
+            <span className="block sm:hidden">Start</span>
+            <span className="hidden sm:block">
+              {"Start Free - No Credit Card Required"}
+            </span>
+
+            <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+          </Button>
+        </div>
       </div>
     </section>
   );
