@@ -27,7 +27,7 @@ export function HeroSection({ onGetStarted }: { onGetStarted: () => void }) {
     font-bold text-gray-900 
     mb-6 
     leading-snug sm:leading-tight md:leading-tight
-    text-center md:text-left
+    text-center 
   "
 >
   Powerful features for
