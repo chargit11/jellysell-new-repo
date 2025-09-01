@@ -15,7 +15,7 @@ export function HeroSection({ onGetStarted }: HeroSectionProps) {
   return (
     <section className="py-20 px-6">
       <div className="max-w-7xl mx-auto text-center">
-        <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
+        <h1 className="text-2xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight">
           <span className="relative inline-block">
             <span className="spread-text">
               <span className="letter">S</span>
@@ -39,17 +39,23 @@ export function HeroSection({ onGetStarted }: HeroSectionProps) {
         <div className="flex items-center justify-center mb-12">
           <Button
             size="lg"
-            className="bg-purple-600 hover:bg-purple-700 text-lg px-8 py-3"
+            className="
+            bg-purple-600 hover:bg-purple-700 
+            text-base sm:text-lg md:text-xl 
+            px-4 sm:px-6 md:px-8 
+            py-2 sm:py-3"
             onClick={onGetStarted}
           >
-            {cta}
-            <ArrowRight className="ml-2 h-5 w-5" />
+            <span className="block sm:hidden">Start</span>
+            <span className="hidden sm:block">{cta}</span>
+
+            <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
         </div>
 
         {/* Platform Logos */}
-        <div className="flex items-center justify-center gap-8 opacity-60">
-          <span className="text-sm font-medium text-gray-500">
+        <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-8 opacity-60">
+          <span className="w-full text-center text-sm font-medium text-gray-500 mb-2 sm:mb-0">
             Integrates with:
           </span>
           {platforms.map((platform) => (

@@ -1,14 +1,18 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "./ui/button";
+import { Menu, X } from "lucide-react"; // icons
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
+          {/* Logo */}
           <div className="flex items-center gap-2 cursor-pointer">
             <Image
               src="/images/new-jellysell-logo.png"
@@ -19,7 +23,9 @@ const Navbar = () => {
             />
             <span className="text-2xl font-bold text-gray-900">jellysell</span>
           </div>
-          <div className="flex items-center gap-4">
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center gap-4">
             <Button variant="ghost" asChild>
               <Link href="/feature">Features</Link>
             </Button>
@@ -33,7 +39,32 @@ const Navbar = () => {
               <Link href="/signup">Get Started</Link>
             </Button>
           </div>
+
+          {/* Mobile Menu Icon */}
+          <div className="md:hidden">
+            <button onClick={() => setIsOpen(!isOpen)}>
+              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Dropdown */}
+        {isOpen && (
+          <div className="md:hidden mt-4 flex flex-col gap-2">
+            <Button variant="ghost" asChild>
+              <Link href="/feature">Features</Link>
+            </Button>
+            <Button variant="ghost" asChild>
+              <Link href="/pricing">Pricing</Link>
+            </Button>
+            <Button variant="outline" asChild>
+              <Link href="/login">Sign In</Link>
+            </Button>
+            <Button className="bg-purple-600 hover:bg-purple-700" asChild>
+              <Link href="/signup">Get Started</Link>
+            </Button>
+          </div>
+        )}
       </div>
     </header>
   );
