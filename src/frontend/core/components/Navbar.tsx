@@ -3,10 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
-import { Menu, X } from "lucide-react"; // icons
+import { Menu, X } from "lucide-react";
+import { SignInModal } from "@/frontend/newComponents/login/SignInModal";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   return (
     <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
@@ -32,8 +34,9 @@ const Navbar = () => {
             <Button variant="ghost" asChild>
               <Link href="/pricing">Pricing</Link>
             </Button>
-            <Button variant="outline" asChild>
-              <Link href="/login">Sign In</Link>
+            {/* Sign In Modal Trigger */}
+            <Button variant="outline" onClick={() => setIsLoginOpen(true)}>
+              Sign In
             </Button>
             <Button className="bg-purple-600 hover:bg-purple-700" asChild>
               <Link href="/signup">Get Started</Link>
@@ -43,7 +46,11 @@ const Navbar = () => {
           {/* Mobile Menu Icon */}
           <div className="md:hidden">
             <button onClick={() => setIsOpen(!isOpen)}>
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
@@ -57,8 +64,9 @@ const Navbar = () => {
             <Button variant="ghost" asChild>
               <Link href="/pricing">Pricing</Link>
             </Button>
-            <Button variant="outline" asChild>
-              <Link href="/login">Sign In</Link>
+            {/* Mobile Sign In Modal Trigger */}
+            <Button variant="outline" onClick={() => setIsLoginOpen(true)}>
+              Sign In
             </Button>
             <Button className="bg-purple-600 hover:bg-purple-700" asChild>
               <Link href="/signup">Get Started</Link>
@@ -66,6 +74,13 @@ const Navbar = () => {
           </div>
         )}
       </div>
+
+      {/* Sign In Modal */}
+      <SignInModal
+        isOpen={isLoginOpen}
+        onClose={() => setIsLoginOpen(false)}
+        onSignIn={() => console.log("Signed in!")}
+      />
     </header>
   );
 };

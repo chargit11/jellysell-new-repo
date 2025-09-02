@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, usePathname } from "next/navigation"; // ✅
+import { useRouter, usePathname } from "next/navigation";
 import {
   Sidebar,
   SidebarContent,
@@ -32,6 +32,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/frontend/components/ui/sheet";
+import useAuthStore from "@/frontend/stores/authStore/auth";
 
 const menuItems = [
   {
@@ -73,7 +74,7 @@ const menuItems = [
 ];
 
 interface AppSidebarProps {
-  onLogout: () => void;
+  // onLogout: () => void;
   unreadMessagesCount?: number;
   pendingOrdersCount?: number;
   outOfStockCount?: number;
@@ -81,7 +82,7 @@ interface AppSidebarProps {
 }
 
 export function AppSidebar({
-  onLogout,
+  // onLogout,
   unreadMessagesCount = 3,
   pendingOrdersCount = 2,
   outOfStockCount = 1,
@@ -89,7 +90,12 @@ export function AppSidebar({
 }: AppSidebarProps) {
   const { toggleSidebar, state } = useSidebar();
   const router = useRouter();
-  const pathname = usePathname(); // ✅ to highlight active item
+  const pathname = usePathname();
+  const { logout } = useAuthStore();
+  const handleLogout = async () => {
+    await logout();
+    router.push("/");
+  };
 
   const getNotificationBadge = (itemId: string) => {
     let count = 0;
@@ -125,79 +131,79 @@ export function AppSidebar({
 
   return (
     <>
-    <Sidebar collapsible="icon">
-      <SidebarHeader>
-        <div className="flex items-center justify-between px-2 py-2">
-          <div className="flex items-center gap-2">
-            <Image
-              src="/images/new-jellysell-logo.png"
-              alt="jellysell Logo"
-              width={24}
-              height={24}
-              className="h-6 w-6"
-            />
+      <Sidebar collapsible="icon">
+        <SidebarHeader>
+          <div className="flex items-center justify-between px-2 py-2">
+            <div className="flex items-center gap-2">
+              <Image
+                src="/images/new-jellysell-logo.png"
+                alt="jellysell Logo"
+                width={24}
+                height={24}
+                className="h-6 w-6"
+              />
+              {state !== "collapsed" && (
+                <span className="text-lg font-semibold">jellysell</span>
+              )}
+            </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggleSidebar}
+              className="h-8 w-8"
+            >
+              <Menu className="h-4 w-4" />
+            </Button>
+          </div>
+        </SidebarHeader>
+
+        <SidebarContent>
+          <SidebarGroup>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {menuItems.map((item) => (
+                  <SidebarMenuItem key={item.id} className="relative">
+                    <SidebarMenuButton
+                      isActive={pathname === item.path} // ✅ highlight active route
+                      onClick={() => router.push(item.path)} // ✅ navigate
+                      tooltip={item.title}
+                      className={`flex items-center w-full ${
+                        state === "collapsed"
+                          ? "justify-center"
+                          : "justify-between"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <item.icon />
+                        {state !== "collapsed" && <span>{item.title}</span>}
+                      </div>
+                      {state !== "collapsed" && getNotificationBadge(item.id)}
+                    </SidebarMenuButton>
+                    {state === "collapsed" && getNotificationBadge(item.id)}
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        </SidebarContent>
+
+        {/* Log Out Section */}
+        <div className="mt-auto p-4 border-t">
+          <div
+            onClick={handleLogout}
+            className={`flex items-center ${
+              state === "collapsed" ? "justify-center" : "gap-3"
+            } cursor-pointer hover:bg-gray-100 rounded-lg p-2 transition-colors`}
+          >
+            <div className="h-8 w-8 rounded-full border-2 border-gray-400 flex items-center justify-center bg-white flex-shrink-0">
+              <LogOut className="h-4 w-4 text-gray-600" />
+            </div>
             {state !== "collapsed" && (
-              <span className="text-lg font-semibold">jellysell</span>
+              <span className="text-sm font-medium text-gray-700">Log out</span>
             )}
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={toggleSidebar}
-            className="h-8 w-8"
-          >
-            <Menu className="h-4 w-4" />
-          </Button>
         </div>
-      </SidebarHeader>
-
-      <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {menuItems.map((item) => (
-                <SidebarMenuItem key={item.id} className="relative">
-                  <SidebarMenuButton
-                    isActive={pathname === item.path} // ✅ highlight active route
-                    onClick={() => router.push(item.path)} // ✅ navigate
-                    tooltip={item.title}
-                    className={`flex items-center w-full ${
-                      state === "collapsed"
-                        ? "justify-center"
-                        : "justify-between"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2">
-                      <item.icon />
-                      {state !== "collapsed" && <span>{item.title}</span>}
-                    </div>
-                    {state !== "collapsed" && getNotificationBadge(item.id)}
-                  </SidebarMenuButton>
-                  {state === "collapsed" && getNotificationBadge(item.id)}
-                </SidebarMenuItem>
-              ))}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-      </SidebarContent>
-
-      {/* Log Out Section */}
-      <div className="mt-auto p-4 border-t">
-        <div
-          onClick={onLogout}
-          className={`flex items-center ${
-            state === "collapsed" ? "justify-center" : "gap-3"
-          } cursor-pointer hover:bg-gray-100 rounded-lg p-2 transition-colors`}
-        >
-          <div className="h-8 w-8 rounded-full border-2 border-gray-400 flex items-center justify-center bg-white flex-shrink-0">
-            <LogOut className="h-4 w-4 text-gray-600" />
-          </div>
-          {state !== "collapsed" && (
-            <span className="text-sm font-medium text-gray-700">Log out</span>
-          )}
-        </div>
-      </div>
-    </Sidebar>
+      </Sidebar>
       <div className="md:hidden">
         <Sheet>
           <SheetTrigger asChild>
@@ -236,18 +242,20 @@ export function AppSidebar({
             {/* Logout */}
             <div className="mt-auto p-4 border-t">
               <div
-                onClick={onLogout}
+                onClick={handleLogout}
                 className="flex items-center gap-3 cursor-pointer hover:bg-gray-100 rounded-lg p-2 transition-colors"
               >
                 <div className="h-8 w-8 rounded-full border-2 border-gray-400 flex items-center justify-center bg-white">
                   <LogOut className="h-4 w-4 text-gray-600" />
                 </div>
-                <span className="text-sm font-medium text-gray-700">Log out</span>
+                <span className="text-sm font-medium text-gray-700">
+                  Log out
+                </span>
               </div>
             </div>
           </SheetContent>
         </Sheet>
       </div>
-      </>
+    </>
   );
 }
