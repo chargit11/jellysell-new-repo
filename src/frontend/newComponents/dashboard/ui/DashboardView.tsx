@@ -63,11 +63,17 @@ export function DashboardView() {
   return (
     <div className="h-full flex flex-col overflow-hidden w-full">
       {/* Top Controls */}
-      <div className="flex items-center justify-between mb-2 px-3 py-2 bg-white rounded-lg border flex-shrink-0">
-        <div className="flex items-center gap-3">
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-2 px-3 py-2 bg-white rounded-lg border flex-shrink-0">
+        {/* Left side */}
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+          {/* Date filter */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full sm:w-auto justify-between"
+              >
                 <Calendar className="h-4 w-4 mr-2" />
                 Last 30 days
                 <ChevronDown className="h-4 w-4 ml-2" />
@@ -80,9 +86,14 @@ export function DashboardView() {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Channel filter */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full sm:w-auto justify-between"
+              >
                 All channels
                 <ChevronDown className="h-4 w-4 ml-2" />
               </Button>
@@ -97,30 +108,29 @@ export function DashboardView() {
             </DropdownMenuContent>
           </DropdownMenu>
 
+          {/* Live visitors */}
           <div className="flex items-center gap-2 text-sm">
             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
             <span>0 live visitors</span>
           </div>
         </div>
 
-        <div className="text-sm">Next payout: $0.00</div>
+        {/* Right side */}
+        <div className="text-sm text-gray-700">Next payout: $0.00</div>
       </div>
 
       {/* Chart Card */}
       <div className="bg-white rounded-lg border flex-1 flex flex-col min-h-0 overflow-hidden">
         {/* Metrics Row */}
-        <div className="flex border-b flex-shrink-0">
+        <div className="flex flex-col sm:flex-row flex-wrap border-b flex-shrink-0">
           {metrics.map((metric, index) => (
             <button
               key={metric.id}
               onClick={() => setSelectedMetric(metric.id)}
-              className={`flex-1 p-3 text-left transition-colors ${
-                index < metrics.length - 1 ? "border-r" : ""
-              } ${
-                selectedMetric === metric.id
-                  ? "bg-gray-100"
-                  : "hover:bg-gray-50"
-              }`}
+              className={`flex-1 min-w-[150px] p-3 text-left transition-colors
+        ${index < metrics.length - 1 ? "sm:border-r" : ""}
+        ${selectedMetric === metric.id ? "bg-gray-100" : "hover:bg-gray-50"}
+      `}
             >
               <div className="flex items-center justify-between mb-1">
                 <span className="text-sm text-gray-600">{metric.label}</span>
@@ -140,6 +150,7 @@ export function DashboardView() {
 
         {/* Chart Area */}
         <div className="flex-1 min-h-0 flex flex-col p-2">
+          {/* Chart */}
           <div className="flex-1 min-h-0">
             <ChartContainer
               config={{
@@ -190,13 +201,13 @@ export function DashboardView() {
           </div>
 
           {/* Legend */}
-          <div className="flex items-center justify-center gap-6 py-2 text-xs border-t flex-shrink-0">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 py-2 text-xs border-t flex-shrink-0 text-center">
             <div className="flex items-center gap-2">
-              <div className="w-3 h-px bg-purple-500"></div>
+              <div className="w-6 h-px bg-purple-500"></div>
               <span className="text-gray-600">Jun 27–Jul 26, 2025</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-px border-t border-dashed border-purple-400"></div>
+              <div className="w-6 h-px border-t border-dashed border-purple-400"></div>
               <span className="text-gray-600">May 28–Jun 26, 2025</span>
             </div>
           </div>
