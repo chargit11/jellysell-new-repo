@@ -89,7 +89,7 @@ export function ConnectionsView({
     <>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-4 pb-4 pl-4 pr-4 border-b flex-shrink-0 gap-3">
         {/* Title */}
-        <h1 className="text-lg font-semibold">Connectins</h1>
+        <h1 className="text-lg font-semibold">Connections</h1>
       </div>
 
       <div className="space-y-8 p-4">

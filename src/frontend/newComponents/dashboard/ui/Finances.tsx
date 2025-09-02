@@ -182,7 +182,7 @@ export function Finances() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-4 pb-4 pl-4 pr-4 border-b flex-shrink-0 gap-3">
         {/* Title */}
-        <h1 className="text-lg font-semibold">finances</h1>
+        <h1 className="text-lg font-semibold">Finances</h1>
       </div>
 
       <div className="space-y-6 p-4">

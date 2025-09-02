@@ -182,212 +182,212 @@ export function Messages() {
     }
   };
 
-  // if (selectedMessage) {
-  //   return (
-  //     <div className="h-full flex flex-col overflow-hidden p-4">
-  //       {/* Header with Messages title, Search, and Auto-reply */}
-  //       <div className="flex items-center justify-between p-4 border-b flex-shrink-0">
-  //         <h1 className="text-lg font-semibold">Messages</h1>
+  if (selectedMessage) {
+    return (
+      <div className="h-full flex flex-col overflow-hidden p-4">
+        {/* Header with Messages title, Search, and Auto-reply */}
+        <div className="flex items-center justify-between p-4 border-b flex-shrink-0">
+          <h1 className="text-lg font-semibold">Messages</h1>
 
-  //         <div className="relative">
-  //           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-  //           <Input
-  //             placeholder="Search your messages"
-  //             className="pl-10 w-80 rounded-full border-gray-300"
-  //           />
-  //         </div>
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Input
+              placeholder="Search your messages"
+              className="pl-10 w-80 rounded-full border-gray-300"
+            />
+          </div>
 
-  //         <DropdownMenu>
-  //           <DropdownMenuTrigger asChild>
-  //             <Button variant="outline" className="rounded-full bg-transparent">
-  //               Auto-reply
-  //               <ChevronDown className="ml-2 h-4 w-4" />
-  //             </Button>
-  //           </DropdownMenuTrigger>
-  //           <DropdownMenuContent>
-  //             <DropdownMenuItem>Enable Auto-reply</DropdownMenuItem>
-  //             <DropdownMenuItem>Disable Auto-reply</DropdownMenuItem>
-  //             <DropdownMenuItem>Settings</DropdownMenuItem>
-  //           </DropdownMenuContent>
-  //         </DropdownMenu>
-  //       </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="outline" className="rounded-full bg-transparent">
+                Auto-reply
+                <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem>Enable Auto-reply</DropdownMenuItem>
+              <DropdownMenuItem>Disable Auto-reply</DropdownMenuItem>
+              <DropdownMenuItem>Settings</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
 
-  //       <div className="flex flex-1 min-h-0">
-  //         {/* Left Sidebar */}
-  //         <div className="w-48 border-r bg-gray-50 flex-shrink-0">
-  //           <div className="p-4">
-  //             {folders.map((folder) => (
-  //               <button
-  //                 key={folder.id}
-  //                 onClick={() => setSelectedFolder(folder.id)}
-  //                 className={`w-full text-left px-3 py-2 rounded-lg mb-1 transition-colors ${
-  //                   selectedFolder === folder.id
-  //                     ? "bg-gray-200 font-medium"
-  //                     : "hover:bg-gray-100"
-  //                 }`}
-  //               >
-  //                 {folder.name}
-  //               </button>
-  //             ))}
-  //           </div>
-  //         </div>
+        <div className="flex flex-1 min-h-0">
+          {/* Left Sidebar */}
+          <div className="w-48 border-r bg-gray-50 flex-shrink-0">
+            <div className="p-4">
+              {folders.map((folder) => (
+                <button
+                  key={folder.id}
+                  onClick={() => setSelectedFolder(folder.id)}
+                  className={`w-full text-left px-3 py-2 rounded-lg mb-1 transition-colors ${
+                    selectedFolder === folder.id
+                      ? "bg-gray-200 font-medium"
+                      : "hover:bg-gray-100"
+                  }`}
+                >
+                  {folder.name}
+                </button>
+              ))}
+            </div>
+          </div>
 
-  //         {/* Chat Area */}
-  //         <div className="flex-1 flex flex-col min-h-0">
-  //           {/* Action Bar */}
-  //           <div className="flex items-center justify-between gap-4 p-4 border-b flex-shrink-0">
-  //             <div className="flex items-center gap-2">
-  //               <Button variant="ghost" size="sm">
-  //                 <Trash2 className="h-4 w-4 mr-1" />
-  //                 Trash
-  //               </Button>
-  //               <Button variant="ghost" size="sm">
-  //                 <MailOpen className="h-4 w-4 mr-1" />
-  //                 Mark Unread
-  //               </Button>
-  //               <Button variant="ghost" size="sm">
-  //                 <Mail className="h-4 w-4 mr-1" />
-  //                 Mark Read
-  //               </Button>
-  //               <Button variant="ghost" size="sm">
-  //                 <Flag className="h-4 w-4 mr-1" />
-  //                 Report
-  //               </Button>
-  //               <Button variant="ghost" size="sm">
-  //                 <Archive className="h-4 w-4 mr-1" />
-  //                 Archive
-  //               </Button>
-  //               <DropdownMenu>
-  //                 <DropdownMenuTrigger asChild>
-  //                   <Button variant="ghost" size="sm">
-  //                     <Tag className="h-4 w-4 mr-1" />
-  //                     Label
-  //                     <ChevronDown className="ml-1 h-3 w-3" />
-  //                   </Button>
-  //                 </DropdownMenuTrigger>
-  //                 <DropdownMenuContent>
-  //                   <DropdownMenuItem>Important</DropdownMenuItem>
-  //                   <DropdownMenuItem>Follow Up</DropdownMenuItem>
-  //                   <DropdownMenuItem>Resolved</DropdownMenuItem>
-  //                 </DropdownMenuContent>
-  //               </DropdownMenu>
-  //             </div>
-  //           </div>
+          {/* Chat Area */}
+          <div className="flex-1 flex flex-col min-h-0">
+            {/* Action Bar */}
+            <div className="flex items-center justify-between gap-4 p-4 border-b flex-shrink-0">
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="sm">
+                  <Trash2 className="h-4 w-4 mr-1" />
+                  Trash
+                </Button>
+                <Button variant="ghost" size="sm">
+                  <MailOpen className="h-4 w-4 mr-1" />
+                  Mark Unread
+                </Button>
+                <Button variant="ghost" size="sm">
+                  <Mail className="h-4 w-4 mr-1" />
+                  Mark Read
+                </Button>
+                <Button variant="ghost" size="sm">
+                  <Flag className="h-4 w-4 mr-1" />
+                  Report
+                </Button>
+                <Button variant="ghost" size="sm">
+                  <Archive className="h-4 w-4 mr-1" />
+                  Archive
+                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm">
+                      <Tag className="h-4 w-4 mr-1" />
+                      Label
+                      <ChevronDown className="ml-1 h-3 w-3" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent>
+                    <DropdownMenuItem>Important</DropdownMenuItem>
+                    <DropdownMenuItem>Follow Up</DropdownMenuItem>
+                    <DropdownMenuItem>Resolved</DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </div>
 
-  //           {/* Messages */}
-  //           <div className="flex-1 overflow-y-auto p-6">
-  //             {chatMessages.map((message, index) => (
-  //               <div key={message.id}>
-  //                 {/* Date separator */}
-  //                 {(index === 0 ||
-  //                   chatMessages[index - 1].date !== message.date) && (
-  //                   <div className="text-center text-sm text-gray-500 mb-6">
-  //                     {message.date}
-  //                   </div>
-  //                 )}
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-6">
+              {chatMessages.map((message, index) => (
+                <div key={message.id}>
+                  {/* Date separator */}
+                  {(index === 0 ||
+                    chatMessages[index - 1].date !== message.date) && (
+                    <div className="text-center text-sm text-gray-500 mb-6">
+                      {message.date}
+                    </div>
+                  )}
 
-  //                 {/* Message */}
-  //                 <div
-  //                   className={`flex mb-6 ${
-  //                     message.sender === "seller"
-  //                       ? "justify-end"
-  //                       : "justify-start"
-  //                   }`}
-  //                 >
-  //                   {message.sender === "customer" && (
-  //                     <div className="w-10 h-10 mr-3 mt-1 rounded-full overflow-hidden">
-  //                       <Image
-  //                         src={selectedMessage.avatar || "/placeholder.svg"}
-  //                         alt={`${selectedMessage.platform} logo`}
-  //                         width={40}
-  //                         height={40}
-  //                         className="object-cover w-full h-full"
-  //                       />
-  //                     </div>
-  //                   )}
+                  {/* Message */}
+                  <div
+                    className={`flex mb-6 ${
+                      message.sender === "seller"
+                        ? "justify-end"
+                        : "justify-start"
+                    }`}
+                  >
+                    {message.sender === "customer" && (
+                      <div className="w-10 h-10 mr-3 mt-1 rounded-full overflow-hidden">
+                        <Image
+                          src={selectedMessage.avatar || "/placeholder.svg"}
+                          alt={`${selectedMessage.platform} logo`}
+                          width={40}
+                          height={40}
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
+                    )}
 
-  //                   <div
-  //                     className={`max-w-2xl ${
-  //                       message.sender === "seller" ? "ml-auto" : ""
-  //                     }`}
-  //                   >
-  //                     <div
-  //                       className={`rounded-2xl p-4 ${
-  //                         message.sender === "seller"
-  //                           ? "bg-purple-500 text-white"
-  //                           : "bg-gray-100 border"
-  //                       }`}
-  //                     >
-  //                       <p className="text-sm leading-relaxed">
-  //                         {message.text}
-  //                       </p>
-  //                     </div>
-  //                     <div
-  //                       className={`text-xs text-gray-500 mt-1 ${
-  //                         message.sender === "seller"
-  //                           ? "text-right"
-  //                           : "text-left"
-  //                       }`}
-  //                     >
-  //                       {message.timestamp}
-  //                     </div>
-  //                   </div>
-  //                 </div>
-  //               </div>
-  //             ))}
-  //             <div ref={messagesEndRef} />
-  //           </div>
+                    <div
+                      className={`max-w-2xl ${
+                        message.sender === "seller" ? "ml-auto" : ""
+                      }`}
+                    >
+                      <div
+                        className={`rounded-2xl p-4 ${
+                          message.sender === "seller"
+                            ? "bg-purple-500 text-white"
+                            : "bg-gray-100 border"
+                        }`}
+                      >
+                        <p className="text-sm leading-relaxed">
+                          {message.text}
+                        </p>
+                      </div>
+                      <div
+                        className={`text-xs text-gray-500 mt-1 ${
+                          message.sender === "seller"
+                            ? "text-right"
+                            : "text-left"
+                        }`}
+                      >
+                        {message.timestamp}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <div ref={messagesEndRef} />
+            </div>
 
-  //           {/* Disclaimer */}
-  //           <div className="px-6 py-2 bg-gray-50 border-t">
-  //             <div className="flex items-start space-x-2 text-xs text-gray-600">
-  //               <div className="w-4 h-4 bg-gray-400 rounded-sm flex items-center justify-center mt-0.5">
-  //                 <span className="text-white text-xs">!</span>
-  //               </div>
-  //               <p>
-  //                 We scan and review messages for fraud prevention, policy
-  //                 enforcement, security, to provide support, and for similar
-  //                 purposes.{" "}
-  //                 <span className="underline cursor-pointer">Learn more</span>.
-  //               </p>
-  //             </div>
-  //           </div>
+            {/* Disclaimer */}
+            <div className="px-6 py-2 bg-gray-50 border-t">
+              <div className="flex items-start space-x-2 text-xs text-gray-600">
+                <div className="w-4 h-4 bg-gray-400 rounded-sm flex items-center justify-center mt-0.5">
+                  <span className="text-white text-xs">!</span>
+                </div>
+                <p>
+                  We scan and review messages for fraud prevention, policy
+                  enforcement, security, to provide support, and for similar
+                  purposes.{" "}
+                  <span className="underline cursor-pointer">Learn more</span>.
+                </p>
+              </div>
+            </div>
 
-  //           {/* Reply Section */}
-  //           <div className="p-6 border-t">
-  //             <div className="space-y-4">
-  //               <div className="relative">
-  //                 <Textarea
-  //                   placeholder="Type your reply"
-  //                   value={replyText}
-  //                   onChange={(e) => setReplyText(e.target.value)}
-  //                   onKeyDown={handleKeyPress}
-  //                   className="min-h-[120px] resize-none pr-12"
-  //                 />
-  //                 <Button
-  //                   variant="ghost"
-  //                   size="icon"
-  //                   className="absolute bottom-3 right-3 h-8 w-8"
-  //                 >
-  //                   <ImageIcon className="h-4 w-4" />
-  //                 </Button>
-  //               </div>
+            {/* Reply Section */}
+            <div className="p-6 border-t">
+              <div className="space-y-4">
+                <div className="relative">
+                  <Textarea
+                    placeholder="Type your reply"
+                    value={replyText}
+                    onChange={(e) => setReplyText(e.target.value)}
+                    onKeyDown={handleKeyPress}
+                    className="min-h-[120px] resize-none pr-12"
+                  />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="absolute bottom-3 right-3 h-8 w-8"
+                  >
+                    <ImageIcon className="h-4 w-4" />
+                  </Button>
+                </div>
 
-  //               <div className="flex justify-end">
-  //                 <Button
-  //                   onClick={handleSendReply}
-  //                   disabled={!replyText.trim()}
-  //                 >
-  //                   Send Reply
-  //                 </Button>
-  //               </div>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   );
-  // }
+                <div className="flex justify-end">
+                  <Button
+                    onClick={handleSendReply}
+                    disabled={!replyText.trim()}
+                  >
+                    Send Reply
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="h-full flex flex-col overflow-hidden">
