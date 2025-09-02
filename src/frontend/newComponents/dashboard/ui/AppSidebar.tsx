@@ -24,6 +24,14 @@ import {
   Menu,
   LogOut,
 } from "lucide-react";
+// import { Sheet } from "@/frontend/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/frontend/components/ui/sheet";
 
 const menuItems = [
   {
@@ -116,6 +124,7 @@ export function AppSidebar({
   };
 
   return (
+    <>
     <Sidebar collapsible="icon">
       <SidebarHeader>
         <div className="flex items-center justify-between px-2 py-2">
@@ -189,5 +198,56 @@ export function AppSidebar({
         </div>
       </div>
     </Sidebar>
+      <div className="md:hidden">
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="m-2">
+              <Menu className="h-6 w-6" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-64 p-0">
+            <SheetHeader className="px-4 py-3 border-b">
+              <SheetTitle>jellysell</SheetTitle>
+            </SheetHeader>
+            <SidebarContent>
+              <SidebarGroup>
+                <SidebarGroupContent>
+                  <SidebarMenu>
+                    {menuItems.map((item) => (
+                      <SidebarMenuItem key={item.id}>
+                        <SidebarMenuButton
+                          isActive={pathname === item.path}
+                          onClick={() => router.push(item.path)}
+                          className="flex items-center justify-between w-full"
+                        >
+                          <div className="flex items-center gap-2">
+                            <item.icon />
+                            <span>{item.title}</span>
+                          </div>
+                          {getNotificationBadge(item.id)}
+                        </SidebarMenuButton>
+                      </SidebarMenuItem>
+                    ))}
+                  </SidebarMenu>
+                </SidebarGroupContent>
+              </SidebarGroup>
+            </SidebarContent>
+
+            {/* Logout */}
+            <div className="mt-auto p-4 border-t">
+              <div
+                onClick={onLogout}
+                className="flex items-center gap-3 cursor-pointer hover:bg-gray-100 rounded-lg p-2 transition-colors"
+              >
+                <div className="h-8 w-8 rounded-full border-2 border-gray-400 flex items-center justify-center bg-white">
+                  <LogOut className="h-4 w-4 text-gray-600" />
+                </div>
+                <span className="text-sm font-medium text-gray-700">Log out</span>
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
+      </>
   );
 }
