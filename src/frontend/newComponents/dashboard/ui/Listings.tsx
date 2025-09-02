@@ -383,233 +383,235 @@ export function Listings() {
 
       {/* Listings Table */}
       <div className="border rounded-lg">
-        <Table>
-          <TableHeader>
-            <TableRow className="bg-gray-50">
-              <TableHead className="w-8">
-                <Checkbox
-                  checked={selectedListings.length === listings.length}
-                  onCheckedChange={handleSelectAll}
-                />
-              </TableHead>
-              <TableHead className="w-[200px]">Product</TableHead>
-              <TableHead className="w-[80px] text-xs">Performance</TableHead>
-              <TableHead className="w-[90px] text-xs">Status</TableHead>
-              <TableHead className="w-[50px] text-xs">Stock</TableHead>
-              <TableHead className="w-[60px] text-xs">Price</TableHead>
-              <TableHead className="w-[70px] text-xs">Platforms</TableHead>
-              <TableHead className="w-[80px] text-xs">Quality</TableHead>
-              <TableHead className="w-[60px] text-xs">Action</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filteredListings.map((listing) => (
-              <TableRow key={listing.id}>
-                <TableCell>
+        {/* Desktop Table */}
+        <div className="hidden md:block">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-gray-50">
+                <TableHead className="w-8">
                   <Checkbox
-                    checked={selectedListings.includes(listing.id)}
-                    onCheckedChange={(checked) =>
-                      handleSelectListing(listing.id, checked as boolean)
-                    }
+                    checked={selectedListings.length === listings.length}
+                    onCheckedChange={handleSelectAll}
                   />
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 flex-shrink-0">
-                      <Image
-                        src="/images/jelly-jar.png"
-                        alt="Jelly jar"
-                        width={32}
-                        height={32}
-                        className="rounded object-contain w-full h-full"
-                      />
+                </TableHead>
+                <TableHead className="w-[200px]">Product</TableHead>
+                <TableHead className="w-[80px] text-xs">Performance</TableHead>
+                <TableHead className="w-[90px] text-xs">Status</TableHead>
+                <TableHead className="w-[50px] text-xs">Stock</TableHead>
+                <TableHead className="w-[60px] text-xs">Price</TableHead>
+                <TableHead className="w-[70px] text-xs">Platforms</TableHead>
+                <TableHead className="w-[80px] text-xs">Quality</TableHead>
+                <TableHead className="w-[60px] text-xs">Action</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredListings.map((listing) => (
+                <TableRow key={listing.id}>
+                  <TableCell>
+                    <Checkbox
+                      checked={selectedListings.includes(listing.id)}
+                      onCheckedChange={(checked) =>
+                        handleSelectListing(listing.id, checked as boolean)
+                      }
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 flex-shrink-0">
+                        <Image
+                          src="/images/jelly-jar.png"
+                          alt="Jelly jar"
+                          width={32}
+                          height={32}
+                          className="rounded object-contain w-full h-full"
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="font-medium text-gray-900 text-xs truncate">
+                          {listing.title}
+                        </h3>
+                        <p className="text-xs text-gray-500 truncate">
+                          ID:{listing.id.slice(-8)}
+                        </p>
+                      </div>
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <h3 className="font-medium text-gray-900 text-xs truncate">
-                        {listing.title}
-                      </h3>
-                      <p className="text-xs text-gray-500 truncate">
-                        ID:{listing.id.slice(-8)}
-                      </p>
+                  </TableCell>
+                  <TableCell>
+                    <div className="space-y-0.5">
+                      <div className="text-xs font-medium">
+                        {listing.performance.itemsSold} sold
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {listing.performance.views} views
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        ${listing.performance.sales.toFixed(0)}
+                      </div>
                     </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="space-y-0.5">
-                    <div className="text-xs font-medium">
-                      {listing.performance.itemsSold} sold
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      {listing.performance.views} views
-                    </div>
-                    <div className="text-xs text-gray-500">
-                      ${listing.performance.sales.toFixed(0)}
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="space-y-0.5">
+                  </TableCell>
+                  <TableCell>
                     <div className="flex items-center gap-1">
                       <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
                       <span className="text-xs font-medium">
                         {listing.status}
                       </span>
                     </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  {editingStock === listing.id ? (
-                    <div className="flex items-center gap-0.5">
-                      <Input
-                        type="number"
-                        value={tempStock}
-                        onChange={(e) => setTempStock(e.target.value)}
-                        onKeyDown={(e) =>
-                          handleKeyPress(e, () => handleStockSave(listing.id))
-                        }
-                        className="w-12 h-6 text-xs"
-                        min="0"
-                        autoFocus
-                      />
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        className="h-4 w-4"
-                        onClick={() => handleStockSave(listing.id)}
-                      >
-                        <Check className="h-2 w-2 text-green-600" />
-                      </Button>
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        className="h-4 w-4"
-                        onClick={handleStockCancel}
-                      >
-                        <X className="h-2 w-2 text-red-600" />
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="flex items-center gap-0.5">
-                      <span
-                        className={`font-medium text-xs ${
-                          listing.stock === 0 ? "text-red-600" : "text-gray-900"
-                        }`}
-                      >
-                        {listing.stock}
-                      </span>
-                      <button
-                        onClick={() =>
-                          handleStockEdit(listing.id, listing.stock)
-                        }
-                        className="p-0.5 hover:bg-gray-100 rounded transition-colors"
-                      >
-                        <Edit className="h-2 w-2 text-gray-400 hover:text-gray-600" />
-                      </button>
-                    </div>
-                  )}
-                </TableCell>
-                <TableCell>
-                  {editingPrice === listing.id ? (
-                    <div className="flex items-center gap-0.5">
-                      <div className="flex items-center">
-                        <span className="text-xs">$</span>
-                        <Input
-                          type="number"
-                          value={tempPrice}
-                          onChange={(e) => setTempPrice(e.target.value)}
-                          onKeyDown={(e) =>
-                            handleKeyPress(e, () => handlePriceSave(listing.id))
-                          }
-                          className="w-14 h-6 text-xs pl-1"
-                          min="0"
-                          step="0.01"
-                          autoFocus
+                  </TableCell>
+                  <TableCell>
+                    <span
+                      className={`font-medium text-xs ${
+                        listing.stock === 0 ? "text-red-600" : "text-gray-900"
+                      }`}
+                    >
+                      {listing.stock}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="font-medium text-xs">
+                      ${listing.price}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <PlatformIcons
+                      platforms={listing.platforms}
+                      onTogglePlatform={(platform) =>
+                        handleTogglePlatform(listing.id, platform)
+                      }
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <div className="space-y-1">
+                      <div className="text-xs font-medium">
+                        {listing.listingQuality}
+                      </div>
+                      <div className="w-12">
+                        <SegmentedProgress
+                          value={listing.qualityScore}
+                          segments={3}
                         />
                       </div>
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        className="h-4 w-4"
-                        onClick={() => handlePriceSave(listing.id)}
-                      >
-                        <Check className="h-2 w-2 text-green-600" />
-                      </Button>
-                      <Button
-                        size="icon"
-                        variant="ghost"
-                        className="h-4 w-4"
-                        onClick={handlePriceCancel}
-                      >
-                        <X className="h-2 w-2 text-red-600" />
-                      </Button>
                     </div>
-                  ) : (
-                    <div className="flex items-center gap-0.5">
-                      <span className="font-medium text-xs">
-                        ${listing.price}
-                      </span>
-                      <button
-                        onClick={() =>
-                          handlePriceEdit(listing.id, listing.price)
-                        }
-                        className="p-0.5 hover:bg-gray-100 rounded transition-colors"
-                      >
-                        <Edit className="h-2 w-2 text-gray-400 hover:text-gray-600" />
-                      </button>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-1">
+                      <Button variant="ghost" size="icon" className="h-6 w-6">
+                        <Edit className="h-3 w-3" />
+                      </Button>
+                      <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6"
+                          >
+                            <MoreHorizontal className="h-3 w-3" />
+                          </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent align="end">
+                          <DropdownMenuItem>View Details</DropdownMenuItem>
+                          <DropdownMenuItem>Edit Listing</DropdownMenuItem>
+                          <DropdownMenuItem>Duplicate</DropdownMenuItem>
+                          <DropdownMenuItem>Deactivate</DropdownMenuItem>
+                          <DropdownMenuItem
+                            className="text-red-600"
+                            onClick={() => handleDeleteListing(listing.id)}
+                          >
+                            Delete
+                          </DropdownMenuItem>
+                        </DropdownMenuContent>
+                      </DropdownMenu>
                     </div>
-                  )}
-                </TableCell>
-                <TableCell>
-                  <PlatformIcons
-                    platforms={listing.platforms}
-                    onTogglePlatform={(platform) =>
-                      handleTogglePlatform(listing.id, platform)
-                    }
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+
+        {/* Mobile Cards */}
+        <div className="block md:hidden space-y-4 p-4"> 
+          {filteredListings.map((listing) => (
+            <div
+              key={listing.id}
+              className="border rounded-lg p-4 bg-white shadow-sm space-y-3 h-600"
+            >
+              <div className="flex items-center gap-2">
+                <Image
+                  src="/images/jelly-jar.png"
+                  alt="Jelly jar"
+                  width={40}
+                  height={40}
+                  className="rounded object-contain"
+                />
+                <div>
+                  <h3 className="font-medium text-gray-900 text-sm">
+                    {listing.title}
+                  </h3>
+                  <p className="text-xs text-gray-500">
+                    ID:{listing.id.slice(-8)}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex justify-between text-xs">
+                <span>{listing.performance.itemsSold} sold</span>
+                <span>{listing.performance.views} views</span>
+                <span>${listing.performance.sales.toFixed(0)}</span>
+              </div>
+
+              <div className="flex justify-between text-xs">
+                <span>Status: {listing.status}</span>
+                <span>Stock: {listing.stock}</span>
+                <span>Price: ${listing.price}</span>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <span className="text-xs">Platforms:</span>
+                <PlatformIcons
+                  platforms={listing.platforms}
+                  onTogglePlatform={(platform) =>
+                    handleTogglePlatform(listing.id, platform)
+                  }
+                />
+              </div>
+
+              <div className="flex justify-between items-center">
+                <span className="text-xs">{listing.listingQuality}</span>
+                <div className="w-16">
+                  <SegmentedProgress
+                    value={listing.qualityScore}
+                    segments={3}
                   />
-                </TableCell>
-                <TableCell>
-                  <div className="space-y-1">
-                    <div className="text-xs font-medium">
-                      {listing.listingQuality}
-                    </div>
-                    <div className="w-12">
-                      <SegmentedProgress
-                        value={listing.qualityScore}
-                        segments={3}
-                      />
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-1">
+                </div>
+              </div>
+
+              <div className="flex justify-end gap-2">
+                <Button variant="ghost" size="icon" className="h-6 w-6">
+                  <Edit className="h-3 w-3" />
+                </Button>
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
                     <Button variant="ghost" size="icon" className="h-6 w-6">
-                      <Edit className="h-3 w-3" />
+                      <MoreHorizontal className="h-3 w-3" />
                     </Button>
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-6 w-6">
-                          <MoreHorizontal className="h-3 w-3" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuItem>View Details</DropdownMenuItem>
-                        <DropdownMenuItem>Edit Listing</DropdownMenuItem>
-                        <DropdownMenuItem>Duplicate</DropdownMenuItem>
-                        <DropdownMenuItem>Deactivate</DropdownMenuItem>
-                        <DropdownMenuItem
-                          className="text-red-600"
-                          onClick={() => handleDeleteListing(listing.id)}
-                        >
-                          Delete
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end">
+                    <DropdownMenuItem>View Details</DropdownMenuItem>
+                    <DropdownMenuItem>Edit Listing</DropdownMenuItem>
+                    <DropdownMenuItem>Duplicate</DropdownMenuItem>
+                    <DropdownMenuItem>Deactivate</DropdownMenuItem>
+                    <DropdownMenuItem
+                      className="text-red-600"
+                      onClick={() => handleDeleteListing(listing.id)}
+                    >
+                      Delete
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Pagination */}

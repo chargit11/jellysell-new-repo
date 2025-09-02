@@ -114,7 +114,8 @@ export function Orders() {
           <AlertTriangle className="h-4 w-4 text-gray-600" />
           <span className="font-medium text-gray-700">Action needed</span>
         </div>
-        <div className="grid grid-cols-6 gap-8">
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
           {actionNeededCategories.map((category, index) => (
             <div key={index} className="text-center">
               <div className="text-sm text-gray-600 mb-3 leading-tight min-h-[2.5rem] flex flex-col items-center justify-center">
@@ -178,80 +179,116 @@ export function Orders() {
 
       {/* Orders Table */}
       <div className="border rounded-lg">
-        <Table>
-          <TableHeader>
-            <TableRow className="bg-gray-50">
-              <TableHead className="w-12">
-                <Checkbox
-                  checked={selectedOrders.length === orders.length}
-                  onCheckedChange={handleSelectAll}
-                />
-              </TableHead>
-              <TableHead>Order</TableHead>
-              <TableHead>Customer</TableHead>
-              <TableHead>Items</TableHead>
-              <TableHead>Order status</TableHead>
-              <TableHead>Platform</TableHead>
-              <TableHead>Total</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {orders.map((order) => (
-              <TableRow key={order.id}>
-                <TableCell>
+        {/* Desktop table */}
+        <div className="hidden md:block">
+          <Table>
+            <TableHeader>
+              <TableRow className="bg-gray-50">
+                <TableHead className="w-12">
                   <Checkbox
-                    checked={selectedOrders.includes(order.id)}
-                    onCheckedChange={(checked) =>
-                      handleSelectOrder(order.id, checked as boolean)
-                    }
+                    checked={selectedOrders.length === orders.length}
+                    onCheckedChange={handleSelectAll}
                   />
-                </TableCell>
-                <TableCell>
-                  <Button
-                    className="bg-purple-500 hover:bg-purple-600 text-white"
-                    size="sm"
-                    onClick={() =>
-                      window.open("https://parcelsapp.com/", "_blank")
-                    }
-                  >
-                    View logistics
-                  </Button>
-                </TableCell>
-                <TableCell>
-                  <span className="font-medium">{order.customer}</span>
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm">{order.items}</span>
-                    <div className="w-4 h-4 rounded overflow-hidden">
-                      <Image
-                        src="/images/jelly-jar.png"
-                        alt="Jelly jar item"
-                        width={16}
-                        height={16}
-                        className="object-contain w-full h-full"
-                      />
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell>
-                  <Badge
-                    variant="secondary"
-                    className="bg-green-100 text-green-800"
-                  >
-                    {order.status}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  <span className="font-medium">{order.platform}</span>
-                </TableCell>
-                <TableCell>
-                  <span className="font-medium">{order.total}</span>
-                </TableCell>
+                </TableHead>
+                <TableHead>Order</TableHead>
+                <TableHead>Customer</TableHead>
+                <TableHead>Items</TableHead>
+                <TableHead>Order status</TableHead>
+                <TableHead>Platform</TableHead>
+                <TableHead>Total</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {orders.map((order) => (
+                <TableRow key={order.id}>
+                  <TableCell>
+                    <Checkbox
+                      checked={selectedOrders.includes(order.id)}
+                      onCheckedChange={(checked) =>
+                        handleSelectOrder(order.id, checked as boolean)
+                      }
+                    />
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      className="bg-purple-500 hover:bg-purple-600 text-white"
+                      size="sm"
+                      onClick={() =>
+                        window.open("https://parcelsapp.com/", "_blank")
+                      }
+                    >
+                      View logistics
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <span className="font-medium">{order.customer}</span>
+                  </TableCell>
+                  <TableCell>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm">{order.items}</span>
+                      <div className="w-4 h-4 rounded overflow-hidden">
+                        <Image
+                          src="/images/jelly-jar.png"
+                          alt="Jelly jar item"
+                          width={16}
+                          height={16}
+                          className="object-contain w-full h-full"
+                        />
+                      </div>
+                    </div>
+                  </TableCell>
+                  <TableCell>
+                    <Badge
+                      variant="secondary"
+                      className="bg-green-100 text-green-800"
+                    >
+                      {order.status}
+                    </Badge>
+                  </TableCell>
+                  <TableCell>
+                    <span className="font-medium">{order.platform}</span>
+                  </TableCell>
+                  <TableCell>
+                    <span className="font-medium">{order.total}</span>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+
+        {/* Mobile stacked cards */}
+        <div className="block md:hidden space-y-4 p-4">
+          {orders.map((order) => (
+            <div
+              key={order.id}
+              className="border rounded-lg p-4 bg-white shadow-sm space-y-2"
+            >
+              <div className="flex justify-between">
+                <span className="font-medium">{order.customer}</span>
+                <Badge className="bg-green-100 text-green-800">
+                  {order.status}
+                </Badge>
+              </div>
+              <div className="flex justify-between text-sm text-gray-600">
+                <span>Items: {order.items}</span>
+                <span>{order.platform}</span>
+              </div>
+              <div className="flex justify-between items-center">
+                <Button
+                  size="sm"
+                  className="bg-purple-500 hover:bg-purple-600 text-white"
+                  onClick={() =>
+                    window.open("https://parcelsapp.com/", "_blank")
+                  }
+                >
+                  View logistics
+                </Button>
+                <span className="font-medium">{order.total}</span>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
