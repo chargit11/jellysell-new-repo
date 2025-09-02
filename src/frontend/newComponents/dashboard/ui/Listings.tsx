@@ -31,6 +31,7 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import { AddProductView } from "./add-product-view";
 
 const tabs = [
   { id: "all", label: "All", count: null },
@@ -188,6 +189,7 @@ export function Listings() {
   const [editingStock, setEditingStock] = useState<string | null>(null);
   const [tempPrice, setTempPrice] = useState("");
   const [tempStock, setTempStock] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
   const getFilteredListings = () => {
     switch (activeTab) {
@@ -312,348 +314,368 @@ export function Listings() {
   const filteredListings = getFilteredListings();
 
   return (
-    <div className="space-y-4 overflow-x-hidden p-2">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border-b flex-shrink-0 gap-3">
-        {/* Title */}
-        <h1 className="text-lg font-semibold">listings</h1>
-       <div className=" flex gap-3 ">
-         <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white">
-          Add a product
-        </button>
-         <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white">
-         Import Listing
-        </button>
-       </div>
-      </div>
-      {/* Tab Navigation */}
-      <div className="border-b">
-        <div className="flex space-x-6">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`pb-3 px-1 border-b-2 font-medium text-sm transition-colors ${
-                activeTab === tab.id
-                  ? "border-purple-500 text-purple-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700"
-              }`}
-            >
-              {tab.label}
-              {tab.count !== null && (
-                <span className="ml-1 text-gray-400">{tab.count}</span>
-              )}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Search and Filters */}
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div className="relative max-w-xs">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            <Input
-              placeholder="Search products"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10 text-sm"
-            />
+    <>
+      {isOpen ? (
+        <>
+          <AddProductView  setIsOpen={setIsOpen}/>
+        </>
+      ) : (
+        <div className="space-y-4 overflow-x-hidden p-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border-b flex-shrink-0 gap-3">
+            {/* Title */}
+            <h1 className="text-lg font-semibold">listings</h1>
+            <div className=" flex gap-3 ">
+              <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white" onClick={() => setIsOpen(true)}>
+                Add a product
+              </button>
+              <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white">
+                Import Listing
+              </button>
+            </div>
+          </div>
+          {/* Tab Navigation */}
+          <div className="border-b">
+            <div className="flex space-x-6">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={`pb-3 px-1 border-b-2 font-medium text-sm transition-colors ${
+                    activeTab === tab.id
+                      ? "border-purple-500 text-purple-600"
+                      : "border-transparent text-gray-500 hover:text-gray-700"
+                  }`}
+                >
+                  {tab.label}
+                  {tab.count !== null && (
+                    <span className="ml-1 text-gray-400">{tab.count}</span>
+                  )}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
-                Category
-                <ChevronDown className="ml-1 h-3 w-3" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>All Categories</DropdownMenuItem>
-              <DropdownMenuItem>Electronics</DropdownMenuItem>
-              <DropdownMenuItem>Toys & Games</DropdownMenuItem>
-              <DropdownMenuItem>Fashion</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          {/* Search and Filters */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="relative max-w-xs">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <Input
+                  placeholder="Search products"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10 text-sm"
+                />
+              </div>
 
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
-                Sort
-                <ChevronDown className="ml-1 h-3 w-3" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Name A-Z</DropdownMenuItem>
-              <DropdownMenuItem>Name Z-A</DropdownMenuItem>
-              <DropdownMenuItem>Price Low-High</DropdownMenuItem>
-              <DropdownMenuItem>Price High-Low</DropdownMenuItem>
-              <DropdownMenuItem>Date Created</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    Category
+                    <ChevronDown className="ml-1 h-3 w-3" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem>All Categories</DropdownMenuItem>
+                  <DropdownMenuItem>Electronics</DropdownMenuItem>
+                  <DropdownMenuItem>Toys & Games</DropdownMenuItem>
+                  <DropdownMenuItem>Fashion</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
 
-      {/* Listings Table */}
-      <div className="border rounded-lg">
-        {/* Desktop Table */}
-        <div className="hidden md:block">
-          <Table>
-            <TableHeader>
-              <TableRow className="bg-gray-50">
-                <TableHead className="w-8">
-                  <Checkbox
-                    checked={selectedListings.length === listings.length}
-                    onCheckedChange={handleSelectAll}
-                  />
-                </TableHead>
-                <TableHead className="w-[200px]">Product</TableHead>
-                <TableHead className="w-[80px] text-xs">Performance</TableHead>
-                <TableHead className="w-[90px] text-xs">Status</TableHead>
-                <TableHead className="w-[50px] text-xs">Stock</TableHead>
-                <TableHead className="w-[60px] text-xs">Price</TableHead>
-                <TableHead className="w-[70px] text-xs">Platforms</TableHead>
-                <TableHead className="w-[80px] text-xs">Quality</TableHead>
-                <TableHead className="w-[60px] text-xs">Action</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredListings.map((listing) => (
-                <TableRow key={listing.id}>
-                  <TableCell>
-                    <Checkbox
-                      checked={selectedListings.includes(listing.id)}
-                      onCheckedChange={(checked) =>
-                        handleSelectListing(listing.id, checked as boolean)
-                      }
-                    />
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 flex-shrink-0">
-                        <Image
-                          src="/images/jelly-jar.png"
-                          alt="Jelly jar"
-                          width={32}
-                          height={32}
-                          className="rounded object-contain w-full h-full"
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    Sort
+                    <ChevronDown className="ml-1 h-3 w-3" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem>Name A-Z</DropdownMenuItem>
+                  <DropdownMenuItem>Name Z-A</DropdownMenuItem>
+                  <DropdownMenuItem>Price Low-High</DropdownMenuItem>
+                  <DropdownMenuItem>Price High-Low</DropdownMenuItem>
+                  <DropdownMenuItem>Date Created</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
+
+          {/* Listings Table */}
+          <div className="border rounded-lg">
+            {/* Desktop Table */}
+            <div className="hidden md:block">
+              <Table>
+                <TableHeader>
+                  <TableRow className="bg-gray-50">
+                    <TableHead className="w-8">
+                      <Checkbox
+                        checked={selectedListings.length === listings.length}
+                        onCheckedChange={handleSelectAll}
+                      />
+                    </TableHead>
+                    <TableHead className="w-[200px]">Product</TableHead>
+                    <TableHead className="w-[80px] text-xs">
+                      Performance
+                    </TableHead>
+                    <TableHead className="w-[90px] text-xs">Status</TableHead>
+                    <TableHead className="w-[50px] text-xs">Stock</TableHead>
+                    <TableHead className="w-[60px] text-xs">Price</TableHead>
+                    <TableHead className="w-[70px] text-xs">
+                      Platforms
+                    </TableHead>
+                    <TableHead className="w-[80px] text-xs">Quality</TableHead>
+                    <TableHead className="w-[60px] text-xs">Action</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {filteredListings.map((listing) => (
+                    <TableRow key={listing.id}>
+                      <TableCell>
+                        <Checkbox
+                          checked={selectedListings.includes(listing.id)}
+                          onCheckedChange={(checked) =>
+                            handleSelectListing(listing.id, checked as boolean)
+                          }
                         />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <h3 className="font-medium text-gray-900 text-xs truncate">
-                          {listing.title}
-                        </h3>
-                        <p className="text-xs text-gray-500 truncate">
-                          ID:{listing.id.slice(-8)}
-                        </p>
-                      </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 flex-shrink-0">
+                            <Image
+                              src="/images/jelly-jar.png"
+                              alt="Jelly jar"
+                              width={32}
+                              height={32}
+                              className="rounded object-contain w-full h-full"
+                            />
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <h3 className="font-medium text-gray-900 text-xs truncate">
+                              {listing.title}
+                            </h3>
+                            <p className="text-xs text-gray-500 truncate">
+                              ID:{listing.id.slice(-8)}
+                            </p>
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="space-y-0.5">
+                          <div className="text-xs font-medium">
+                            {listing.performance.itemsSold} sold
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            {listing.performance.views} views
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            ${listing.performance.sales.toFixed(0)}
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-1">
+                          <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
+                          <span className="text-xs font-medium">
+                            {listing.status}
+                          </span>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <span
+                          className={`font-medium text-xs ${
+                            listing.stock === 0
+                              ? "text-red-600"
+                              : "text-gray-900"
+                          }`}
+                        >
+                          {listing.stock}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="font-medium text-xs">
+                          ${listing.price}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <PlatformIcons
+                          platforms={listing.platforms}
+                          onTogglePlatform={(platform) =>
+                            handleTogglePlatform(listing.id, platform)
+                          }
+                        />
+                      </TableCell>
+                      <TableCell>
+                        <div className="space-y-1">
+                          <div className="text-xs font-medium">
+                            {listing.listingQuality}
+                          </div>
+                          <div className="w-12">
+                            <SegmentedProgress
+                              value={listing.qualityScore}
+                              segments={3}
+                            />
+                          </div>
+                        </div>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex items-center gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-6 w-6"
+                          >
+                            <Edit className="h-3 w-3" />
+                          </Button>
+                          <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-6 w-6"
+                              >
+                                <MoreHorizontal className="h-3 w-3" />
+                              </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                              <DropdownMenuItem>View Details</DropdownMenuItem>
+                              <DropdownMenuItem>Edit Listing</DropdownMenuItem>
+                              <DropdownMenuItem>Duplicate</DropdownMenuItem>
+                              <DropdownMenuItem>Deactivate</DropdownMenuItem>
+                              <DropdownMenuItem
+                                className="text-red-600"
+                                onClick={() => handleDeleteListing(listing.id)}
+                              >
+                                Delete
+                              </DropdownMenuItem>
+                            </DropdownMenuContent>
+                          </DropdownMenu>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+
+            {/* Mobile Cards */}
+            <div className="block md:hidden space-y-4 p-4">
+              {filteredListings.map((listing) => (
+                <div
+                  key={listing.id}
+                  className="border rounded-lg p-4 bg-white shadow-sm space-y-3 h-600"
+                >
+                  <div className="flex items-center gap-2">
+                    <Image
+                      src="/images/jelly-jar.png"
+                      alt="Jelly jar"
+                      width={40}
+                      height={40}
+                      className="rounded object-contain"
+                    />
+                    <div>
+                      <h3 className="font-medium text-gray-900 text-sm">
+                        {listing.title}
+                      </h3>
+                      <p className="text-xs text-gray-500">
+                        ID:{listing.id.slice(-8)}
+                      </p>
                     </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="space-y-0.5">
-                      <div className="text-xs font-medium">
-                        {listing.performance.itemsSold} sold
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        {listing.performance.views} views
-                      </div>
-                      <div className="text-xs text-gray-500">
-                        ${listing.performance.sales.toFixed(0)}
-                      </div>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-1">
-                      <div className="w-1.5 h-1.5 bg-green-500 rounded-full"></div>
-                      <span className="text-xs font-medium">
-                        {listing.status}
-                      </span>
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <span
-                      className={`font-medium text-xs ${
-                        listing.stock === 0 ? "text-red-600" : "text-gray-900"
-                      }`}
-                    >
-                      {listing.stock}
-                    </span>
-                  </TableCell>
-                  <TableCell>
-                    <span className="font-medium text-xs">
-                      ${listing.price}
-                    </span>
-                  </TableCell>
-                  <TableCell>
+                  </div>
+
+                  <div className="flex justify-between text-xs">
+                    <span>{listing.performance.itemsSold} sold</span>
+                    <span>{listing.performance.views} views</span>
+                    <span>${listing.performance.sales.toFixed(0)}</span>
+                  </div>
+
+                  <div className="flex justify-between text-xs">
+                    <span>Status: {listing.status}</span>
+                    <span>Stock: {listing.stock}</span>
+                    <span>Price: ${listing.price}</span>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs">Platforms:</span>
                     <PlatformIcons
                       platforms={listing.platforms}
                       onTogglePlatform={(platform) =>
                         handleTogglePlatform(listing.id, platform)
                       }
                     />
-                  </TableCell>
-                  <TableCell>
-                    <div className="space-y-1">
-                      <div className="text-xs font-medium">
-                        {listing.listingQuality}
-                      </div>
-                      <div className="w-12">
-                        <SegmentedProgress
-                          value={listing.qualityScore}
-                          segments={3}
-                        />
-                      </div>
+                  </div>
+
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs">{listing.listingQuality}</span>
+                    <div className="w-16">
+                      <SegmentedProgress
+                        value={listing.qualityScore}
+                        segments={3}
+                      />
                     </div>
-                  </TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-1">
-                      <Button variant="ghost" size="icon" className="h-6 w-6">
-                        <Edit className="h-3 w-3" />
-                      </Button>
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-6 w-6"
-                          >
-                            <MoreHorizontal className="h-3 w-3" />
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem>View Details</DropdownMenuItem>
-                          <DropdownMenuItem>Edit Listing</DropdownMenuItem>
-                          <DropdownMenuItem>Duplicate</DropdownMenuItem>
-                          <DropdownMenuItem>Deactivate</DropdownMenuItem>
-                          <DropdownMenuItem
-                            className="text-red-600"
-                            onClick={() => handleDeleteListing(listing.id)}
-                          >
-                            Delete
-                          </DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
+                  </div>
 
-        {/* Mobile Cards */}
-        <div className="block md:hidden space-y-4 p-4">
-          {filteredListings.map((listing) => (
-            <div
-              key={listing.id}
-              className="border rounded-lg p-4 bg-white shadow-sm space-y-3 h-600"
-            >
-              <div className="flex items-center gap-2">
-                <Image
-                  src="/images/jelly-jar.png"
-                  alt="Jelly jar"
-                  width={40}
-                  height={40}
-                  className="rounded object-contain"
-                />
-                <div>
-                  <h3 className="font-medium text-gray-900 text-sm">
-                    {listing.title}
-                  </h3>
-                  <p className="text-xs text-gray-500">
-                    ID:{listing.id.slice(-8)}
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex justify-between text-xs">
-                <span>{listing.performance.itemsSold} sold</span>
-                <span>{listing.performance.views} views</span>
-                <span>${listing.performance.sales.toFixed(0)}</span>
-              </div>
-
-              <div className="flex justify-between text-xs">
-                <span>Status: {listing.status}</span>
-                <span>Stock: {listing.stock}</span>
-                <span>Price: ${listing.price}</span>
-              </div>
-
-              <div className="flex justify-between items-center">
-                <span className="text-xs">Platforms:</span>
-                <PlatformIcons
-                  platforms={listing.platforms}
-                  onTogglePlatform={(platform) =>
-                    handleTogglePlatform(listing.id, platform)
-                  }
-                />
-              </div>
-
-              <div className="flex justify-between items-center">
-                <span className="text-xs">{listing.listingQuality}</span>
-                <div className="w-16">
-                  <SegmentedProgress
-                    value={listing.qualityScore}
-                    segments={3}
-                  />
-                </div>
-              </div>
-
-              <div className="flex justify-end gap-2">
-                <Button variant="ghost" size="icon" className="h-6 w-6">
-                  <Edit className="h-3 w-3" />
-                </Button>
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
+                  <div className="flex justify-end gap-2">
                     <Button variant="ghost" size="icon" className="h-6 w-6">
-                      <MoreHorizontal className="h-3 w-3" />
+                      <Edit className="h-3 w-3" />
                     </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end">
-                    <DropdownMenuItem>View Details</DropdownMenuItem>
-                    <DropdownMenuItem>Edit Listing</DropdownMenuItem>
-                    <DropdownMenuItem>Duplicate</DropdownMenuItem>
-                    <DropdownMenuItem>Deactivate</DropdownMenuItem>
-                    <DropdownMenuItem
-                      className="text-red-600"
-                      onClick={() => handleDeleteListing(listing.id)}
-                    >
-                      Delete
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              </div>
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-6 w-6">
+                          <MoreHorizontal className="h-3 w-3" />
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuItem>View Details</DropdownMenuItem>
+                        <DropdownMenuItem>Edit Listing</DropdownMenuItem>
+                        <DropdownMenuItem>Duplicate</DropdownMenuItem>
+                        <DropdownMenuItem>Deactivate</DropdownMenuItem>
+                        <DropdownMenuItem
+                          className="text-red-600"
+                          onClick={() => handleDeleteListing(listing.id)}
+                        >
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Pagination */}
-      <div className="flex items-center justify-between">
-        <div className="text-sm text-gray-500">Total: {listings.length}</div>
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1">
-            <Button variant="ghost" size="icon" className="h-6 w-6">
-              <ChevronLeft className="h-3 w-3" />
-            </Button>
-            <span className="text-sm">1</span>
-            <Button variant="ghost" size="icon" className="h-6 w-6">
-              <ChevronRight className="h-3 w-3" />
-            </Button>
           </div>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="sm">
-                50/Page
-                <ChevronDown className="ml-1 h-3 w-3" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>25/Page</DropdownMenuItem>
-              <DropdownMenuItem>50/Page</DropdownMenuItem>
-              <DropdownMenuItem>100/Page</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+
+          {/* Pagination */}
+          <div className="flex items-center justify-between">
+            <div className="text-sm text-gray-500">
+              Total: {listings.length}
+            </div>
+            <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1">
+                <Button variant="ghost" size="icon" className="h-6 w-6">
+                  <ChevronLeft className="h-3 w-3" />
+                </Button>
+                <span className="text-sm">1</span>
+                <Button variant="ghost" size="icon" className="h-6 w-6">
+                  <ChevronRight className="h-3 w-3" />
+                </Button>
+              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    50/Page
+                    <ChevronDown className="ml-1 h-3 w-3" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuItem>25/Page</DropdownMenuItem>
+                  <DropdownMenuItem>50/Page</DropdownMenuItem>
+                  <DropdownMenuItem>100/Page</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 }

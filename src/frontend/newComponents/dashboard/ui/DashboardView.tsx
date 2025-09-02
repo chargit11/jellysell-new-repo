@@ -61,7 +61,7 @@ export function DashboardView() {
   const [selectedMetric, setSelectedMetric] = useState("sessions");
 
   return (
-    <div className="h-full flex flex-col overflow-hidden w-full">
+    <div className="h-full flex flex-col overflow-hidden w-full p-4">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border-b flex-shrink-0 gap-3">
         {/* Title */}
         <h1 className="text-lg font-semibold">Dashboard</h1>
