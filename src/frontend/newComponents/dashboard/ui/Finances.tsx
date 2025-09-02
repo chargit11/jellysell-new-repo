@@ -180,6 +180,10 @@ export function Finances() {
   return (
     <div className="space-y-6 p-4">
       {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border-b flex-shrink-0 gap-3">
+        {/* Title */}
+        <h1 className="text-lg font-semibold">finances</h1>
+      </div>
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         {/* Left Section */}
         <div>

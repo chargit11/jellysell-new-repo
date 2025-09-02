@@ -88,6 +88,10 @@ export function ConnectionsView({
   return (
     <div className="space-y-8 p-4">
       {/* Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border-b flex-shrink-0 gap-3">
+        {/* Title */}
+        <h1 className="text-lg font-semibold">Connectins</h1>
+      </div>
       <div className="space-y-2">
         <h1 className="text-3xl font-bold tracking-tight">
           Platform Connections & Integrations

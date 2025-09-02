@@ -19,6 +19,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/frontend/core/components/ui/dropdown-menu";
+import { Input } from "@/frontend/core/components/ui/input";
+import {
+  Search,
+} from "lucide-react";
 import Image from "next/image";
 
 const actionNeededCategories = [
@@ -108,6 +112,21 @@ export function Orders() {
 
   return (
     <div className="space-y-6 p-4">
+            <div className="flex flex-col  sm:flex-row sm:items-center sm:justify-between p-2 border-b flex-shrink-0 gap-3">
+        {/* Title */}
+        <h1 className="text-lg font-semibold">Messages</h1>
+
+        {/* Search */}
+        <div className="relative w-full sm:w-80">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Input
+            placeholder="Search your messages"
+            className="pl-10 w-full rounded-full border-gray-300"
+          />
+        </div>
+
+        {/* Auto-reply Dropdown */}
+      </div> 
       {/* Action Needed Section */}
       <div className="bg-gray-50 border rounded-lg p-6">
         <div className="flex items-center gap-2 mb-6">

@@ -62,6 +62,10 @@ export function DashboardView() {
 
   return (
     <div className="h-full flex flex-col overflow-hidden w-full">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border-b flex-shrink-0 gap-3">
+        {/* Title */}
+        <h1 className="text-lg font-semibold">Dashboard</h1>
+      </div>
       {/* Top Controls */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-2 px-3 py-2 bg-white rounded-lg border flex-shrink-0">
         {/* Left side */}
@@ -157,9 +161,9 @@ export function DashboardView() {
                 current: { label: "Jun 27–Jul 26, 2025", color: "#a855f7" },
                 previous: { label: "May 28–Jun 26, 2025", color: "#a855f7" },
               }}
-              className="h-full w-full"
+              className="w-full h-60" 
             >
-              <ResponsiveContainer width="100%" height="100%">
+              <ResponsiveContainer width="100%" height="100px">
                 <LineChart
                   data={chartData}
                   margin={{ top: 5, right: 5, left: 5, bottom: 25 }}
