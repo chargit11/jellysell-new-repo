@@ -178,476 +178,480 @@ export function Finances() {
   const netRevenue = totalRevenue - totalFees;
 
   return (
-    <div className="space-y-6 p-4">
+    <>
       {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border-b flex-shrink-0 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-4 pb-4 pl-4 pr-4 border-b flex-shrink-0 gap-3">
         {/* Title */}
         <h1 className="text-lg font-semibold">finances</h1>
       </div>
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        {/* Left Section */}
-        <div>
-          <p className="text-muted-foreground text-sm sm:text-base">
-            Track your revenue, expenses, and financial performance
-          </p>
+
+      <div className="space-y-6 p-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          {/* Left Section */}
+          <div>
+            <p className="text-muted-foreground text-sm sm:text-base">
+              Track your revenue, expenses, and financial performance
+            </p>
+          </div>
+
+          {/* Right Section */}
+          <div className="flex flex-wrap sm:flex-nowrap items-center gap-3">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="w-full sm:w-auto justify-between"
+                >
+                  <Calendar className="h-4 w-4 mr-2" />
+                  Last 30 days
+                  <ChevronDown className="h-4 w-4 ml-2" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem onClick={() => setSelectedPeriod("7d")}>
+                  Last 7 days
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setSelectedPeriod("30d")}>
+                  Last 30 days
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setSelectedPeriod("90d")}>
+                  Last 90 days
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setSelectedPeriod("1y")}>
+                  Last year
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Button className="bg-purple-600 hover:bg-purple-700 w-full sm:w-auto">
+              <Download className="h-4 w-4 mr-2" />
+              Export Report
+            </Button>
+          </div>
         </div>
 
-        {/* Right Section */}
-        <div className="flex flex-wrap sm:flex-nowrap items-center gap-3">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="outline"
-                className="w-full sm:w-auto justify-between"
+        {/* Key Metrics */}
+        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Total Revenue
+              </CardTitle>
+              <DollarSign className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                ${totalRevenue.toFixed(2)}
+              </div>
+              <div className="flex items-center text-xs text-muted-foreground">
+                <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
+                +12.5% from last month
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Net Revenue</CardTitle>
+              <Wallet className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">${netRevenue.toFixed(2)}</div>
+              <div className="flex items-center text-xs text-muted-foreground">
+                <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
+                +11.8% from last month
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">Total Fees</CardTitle>
+              <Minus className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">${totalFees.toFixed(2)}</div>
+              <div className="flex items-center text-xs text-muted-foreground">
+                <TrendingDown className="h-3 w-3 mr-1 text-red-500" />
+                2% of gross revenue
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                Avg Order Value
+              </CardTitle>
+              <Receipt className="h-4 w-4 text-muted-foreground" />
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                ${averageOrderValue.toFixed(2)}
+              </div>
+              <div className="flex items-center text-xs text-muted-foreground">
+                <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
+                +5.2% from last month
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Revenue Chart */}
+
+        <div className="block md:hidden w-full">
+          <Card className="w-full">
+            <CardHeader className="space-y-1 px-2">
+              <CardTitle className="text-base">Revenue Over Time</CardTitle>
+              <CardDescription className="text-sm">
+                Daily revenue for the selected period
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="px-2">
+              <ChartContainer
+                config={{ revenue: { label: "Revenue", color: "#8b5cf6" } }}
+                className="h-[250px] w-[100%]"
               >
-                <Calendar className="h-4 w-4 mr-2" />
-                Last 30 days
-                <ChevronDown className="h-4 w-4 ml-2" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={() => setSelectedPeriod("7d")}>
-                Last 7 days
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setSelectedPeriod("30d")}>
-                Last 30 days
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setSelectedPeriod("90d")}>
-                Last 90 days
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setSelectedPeriod("1y")}>
-                Last year
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <Button className="bg-purple-600 hover:bg-purple-700 w-full sm:w-auto">
-            <Download className="h-4 w-4 mr-2" />
-            Export Report
-          </Button>
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={revenueData} margin={{ top: 5, bottom: 5 }}>
+                    <XAxis
+                      dataKey="date"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 10, fill: "#6b7280" }}
+                      interval={0} // ensures all labels fit
+                      angle={-45}
+                      textAnchor="end"
+                    />
+                    <YAxis
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 10, fill: "#6b7280" }}
+                      tickFormatter={(value) => `$${value}`}
+                    />
+                    <ChartTooltip
+                      content={<ChartTooltipContent />}
+                      formatter={(value) => [`$${value}`, "Revenue"]}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="revenue"
+                      stroke="#8b5cf6"
+                      strokeWidth={2}
+                      dot={false}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </ChartContainer>
+            </CardContent>
+          </Card>
         </div>
-      </div>
 
-      {/* Key Metrics */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">${totalRevenue.toFixed(2)}</div>
-            <div className="flex items-center text-xs text-muted-foreground">
-              <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
-              +12.5% from last month
-            </div>
-          </CardContent>
-        </Card>
+        {/* Desktop Version */}
+        <div className="hidden md:block w-full">
+          <Card className="w-full">
+            <CardHeader className="space-y-1 sm:space-y-2 px-4">
+              <CardTitle className="text-lg sm:text-xl">
+                Revenue Over Time
+              </CardTitle>
+              <CardDescription className="text-sm sm:text-base">
+                Daily revenue for the selected period
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="px-4">
+              <ChartContainer
+                config={{ revenue: { label: "Revenue", color: "#8b5cf6" } }}
+                className="h-[400px]"
+              >
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart
+                    data={revenueData}
+                    margin={{ top: 5, right: 0, left: 0, bottom: 5 }}
+                  >
+                    <XAxis
+                      dataKey="date"
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 12, fill: "#6b7280" }}
+                    />
+                    <YAxis
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 12, fill: "#6b7280" }}
+                      tickFormatter={(value) => `$${value}`}
+                    />
+                    <ChartTooltip
+                      content={<ChartTooltipContent />}
+                      formatter={(value) => [`$${value}`, "Revenue"]}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey="revenue"
+                      stroke="#8b5cf6"
+                      strokeWidth={2}
+                      dot={false}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </ChartContainer>
+            </CardContent>
+          </Card>
+        </div>
 
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Net Revenue</CardTitle>
-            <Wallet className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">${netRevenue.toFixed(2)}</div>
-            <div className="flex items-center text-xs text-muted-foreground">
-              <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
-              +11.8% from last month
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Total Fees</CardTitle>
-            <Minus className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">${totalFees.toFixed(2)}</div>
-            <div className="flex items-center text-xs text-muted-foreground">
-              <TrendingDown className="h-3 w-3 mr-1 text-red-500" />
-              2% of gross revenue
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Avg Order Value
-            </CardTitle>
-            <Receipt className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold">
-              ${averageOrderValue.toFixed(2)}
-            </div>
-            <div className="flex items-center text-xs text-muted-foreground">
-              <TrendingUp className="h-3 w-3 mr-1 text-green-500" />
-              +5.2% from last month
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Revenue Chart */}
-
-      <div className="block md:hidden w-full">
-        <Card className="w-full">
-          <CardHeader className="space-y-1 px-2">
-            <CardTitle className="text-base">Revenue Over Time</CardTitle>
-            <CardDescription className="text-sm">
-              Daily revenue for the selected period
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="px-2">
-            <ChartContainer
-              config={{ revenue: { label: "Revenue", color: "#8b5cf6" } }}
-              className="h-[250px] w-[100%]"
-            >
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={revenueData}
-                  margin={{ top: 5, bottom: 5 }}
-                >
-                  <XAxis
-                    dataKey="date"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 10, fill: "#6b7280" }}
-                    interval={0} // ensures all labels fit
-                    angle={-45}
-                    textAnchor="end"
-                  />
-                  <YAxis
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 10, fill: "#6b7280" }}
-                    tickFormatter={(value) => `$${value}`}
-                  />
-                  <ChartTooltip
-                    content={<ChartTooltipContent />}
-                    formatter={(value) => [`$${value}`, "Revenue"]}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="revenue"
-                    stroke="#8b5cf6"
-                    strokeWidth={2}
-                    dot={false}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Desktop Version */}
-      <div className="hidden md:block w-full">
-        <Card className="w-full">
-          <CardHeader className="space-y-1 sm:space-y-2 px-4">
-            <CardTitle className="text-lg sm:text-xl">
-              Revenue Over Time
-            </CardTitle>
-            <CardDescription className="text-sm sm:text-base">
-              Daily revenue for the selected period
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="px-4">
-            <ChartContainer
-              config={{ revenue: { label: "Revenue", color: "#8b5cf6" } }}
-              className="h-[400px]"
-            >
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart
-                  data={revenueData}
-                  margin={{ top: 5, right: 0, left: 0, bottom: 5 }}
-                >
-                  <XAxis
-                    dataKey="date"
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 12, fill: "#6b7280" }}
-                  />
-                  <YAxis
-                    axisLine={false}
-                    tickLine={false}
-                    tick={{ fontSize: 12, fill: "#6b7280" }}
-                    tickFormatter={(value) => `$${value}`}
-                  />
-                  <ChartTooltip
-                    content={<ChartTooltipContent />}
-                    formatter={(value) => [`$${value}`, "Revenue"]}
-                  />
-                  <Line
-                    type="monotone"
-                    dataKey="revenue"
-                    stroke="#8b5cf6"
-                    strokeWidth={2}
-                    dot={false}
-                  />
-                </LineChart>
-              </ResponsiveContainer>
-            </ChartContainer>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="grid gap-6">
-        {/* Platform Breakdown */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Revenue by Platform</CardTitle>
-            <CardDescription>
-              Performance across different marketplaces
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {platformData.map((platform) => (
-                <div
-                  key={platform.platform}
-                  className="flex items-center justify-between"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded overflow-hidden">
-                      <Image
-                        src={
-                          platformLogos[platform.platform.toLowerCase()] ||
-                          "/placeholder.svg"
-                        }
-                        alt={`${platform.platform} logo`}
-                        width={32}
-                        height={32}
-                        className="object-contain w-full h-full"
-                      />
-                    </div>
-                    <div>
-                      <div className="font-medium">{platform.platform}</div>
-                      <div className="text-sm text-muted-foreground">
-                        {platform.orders} orders
-                      </div>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-medium">
-                      ${platform.revenue.toFixed(2)}
-                    </div>
-                    <div className="text-sm text-muted-foreground">
-                      {platform.percentage}%
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Recent Transactions */}
-        <Card className="w-full">
-          <CardHeader className="space-y-1 sm:space-y-2">
-            <CardTitle className="text-lg sm:text-xl">
-              Recent Transactions
-            </CardTitle>
-            <CardDescription className="text-sm sm:text-base">
-              Latest sales, refunds, and fees
-            </CardDescription>
-          </CardHeader>
-
-          <CardContent className="space-y-3">
-            {/* Desktop Table */}
-            <div className="hidden sm:block">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Transaction</TableHead>
-                    <TableHead>Platform</TableHead>
-                    <TableHead>Amount</TableHead>
-                    <TableHead>Fee</TableHead>
-                    <TableHead>Net</TableHead>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Status</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {transactions.map((transaction) => (
-                    <TableRow key={transaction.id}>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          {transaction.type === "sale" ? (
-                            <ArrowUpRight className="h-4 w-4 text-green-500" />
-                          ) : (
-                            <ArrowDownRight className="h-4 w-4 text-red-500" />
-                          )}
-                          <div>
-                            <div className="font-medium text-sm">
-                              {transaction.description}
-                            </div>
-                            <div className="text-xs text-muted-foreground">
-                              {transaction.id}
-                            </div>
-                          </div>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <div className="w-4 h-4 rounded overflow-hidden">
-                            <Image
-                              src={
-                                platformLogos[transaction.platform] ||
-                                "/placeholder.svg"
-                              }
-                              alt={`${transaction.platform} logo`}
-                              width={16}
-                              height={16}
-                              className="object-contain w-full h-full"
-                            />
-                          </div>
-                          <span className="capitalize text-sm">
-                            {transaction.platform}
-                          </span>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <span
-                          className={
-                            transaction.amount > 0
-                              ? "text-green-600"
-                              : "text-red-600"
-                          }
-                        >
-                          ${Math.abs(transaction.amount).toFixed(2)}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-muted-foreground">
-                          ${transaction.fee.toFixed(2)}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <span
-                          className={`font-medium ${
-                            transaction.net > 0
-                              ? "text-green-600"
-                              : "text-red-600"
-                          }`}
-                        >
-                          ${transaction.net.toFixed(2)}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <span className="text-sm text-muted-foreground">
-                          {transaction.date}
-                        </span>
-                      </TableCell>
-                      <TableCell>
-                        <Badge
-                          variant={
-                            transaction.status === "completed"
-                              ? "default"
-                              : "secondary"
-                          }
-                        >
-                          {transaction.status}
-                        </Badge>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-
-            {/* Mobile Cards */}
-            <div className="sm:hidden space-y-3">
-              {transactions.map((transaction) => (
-                <div
-                  key={transaction.id}
-                  className="p-4 border rounded-lg shadow-sm"
-                >
-                  {/* Transaction + Platform */}
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-2">
-                      {transaction.type === "sale" ? (
-                        <ArrowUpRight className="h-4 w-4 text-green-500" />
-                      ) : (
-                        <ArrowDownRight className="h-4 w-4 text-red-500" />
-                      )}
-                      <div>
-                        <div className="font-medium text-sm">
-                          {transaction.description}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {transaction.id}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className="w-4 h-4 rounded overflow-hidden">
+        <div className="grid gap-6">
+          {/* Platform Breakdown */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Revenue by Platform</CardTitle>
+              <CardDescription>
+                Performance across different marketplaces
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {platformData.map((platform) => (
+                  <div
+                    key={platform.platform}
+                    className="flex items-center justify-between"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded overflow-hidden">
                         <Image
                           src={
-                            platformLogos[transaction.platform] ||
+                            platformLogos[platform.platform.toLowerCase()] ||
                             "/placeholder.svg"
                           }
-                          alt={`${transaction.platform} logo`}
-                          width={16}
-                          height={16}
+                          alt={`${platform.platform} logo`}
+                          width={32}
+                          height={32}
                           className="object-contain w-full h-full"
                         />
                       </div>
-                      <span className="capitalize text-sm">
-                        {transaction.platform}
-                      </span>
+                      <div>
+                        <div className="font-medium">{platform.platform}</div>
+                        <div className="text-sm text-muted-foreground">
+                          {platform.orders} orders
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-medium">
+                        ${platform.revenue.toFixed(2)}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {platform.percentage}%
+                      </div>
                     </div>
                   </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
 
-                  {/* Amounts */}
-                  <div className="flex justify-between mb-2">
-                    <span
-                      className={
-                        transaction.amount > 0
-                          ? "text-green-600 font-medium"
-                          : "text-red-600 font-medium"
-                      }
-                    >
-                      ${Math.abs(transaction.amount).toFixed(2)}
-                    </span>
-                    <span className="text-muted-foreground">
-                      ${transaction.fee.toFixed(2)}
-                    </span>
-                    <span
-                      className={
-                        transaction.net > 0
-                          ? "text-green-600 font-semibold"
-                          : "text-red-600 font-semibold"
-                      }
-                    >
-                      ${transaction.net.toFixed(2)}
-                    </span>
-                  </div>
+          {/* Recent Transactions */}
+          <Card className="w-full">
+            <CardHeader className="space-y-1 sm:space-y-2">
+              <CardTitle className="text-lg sm:text-xl">
+                Recent Transactions
+              </CardTitle>
+              <CardDescription className="text-sm sm:text-base">
+                Latest sales, refunds, and fees
+              </CardDescription>
+            </CardHeader>
 
-                  {/* Date + Status */}
-                  <div className="flex justify-between items-center">
-                    <span className="text-sm text-muted-foreground">
-                      {transaction.date}
-                    </span>
-                    <Badge
-                      variant={
-                        transaction.status === "completed"
-                          ? "default"
-                          : "secondary"
-                      }
-                    >
-                      {transaction.status}
-                    </Badge>
+            <CardContent className="space-y-3">
+              {/* Desktop Table */}
+              <div className="hidden sm:block">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead>Transaction</TableHead>
+                      <TableHead>Platform</TableHead>
+                      <TableHead>Amount</TableHead>
+                      <TableHead>Fee</TableHead>
+                      <TableHead>Net</TableHead>
+                      <TableHead>Date</TableHead>
+                      <TableHead>Status</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {transactions.map((transaction) => (
+                      <TableRow key={transaction.id}>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            {transaction.type === "sale" ? (
+                              <ArrowUpRight className="h-4 w-4 text-green-500" />
+                            ) : (
+                              <ArrowDownRight className="h-4 w-4 text-red-500" />
+                            )}
+                            <div>
+                              <div className="font-medium text-sm">
+                                {transaction.description}
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                {transaction.id}
+                              </div>
+                            </div>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <div className="w-4 h-4 rounded overflow-hidden">
+                              <Image
+                                src={
+                                  platformLogos[transaction.platform] ||
+                                  "/placeholder.svg"
+                                }
+                                alt={`${transaction.platform} logo`}
+                                width={16}
+                                height={16}
+                                className="object-contain w-full h-full"
+                              />
+                            </div>
+                            <span className="capitalize text-sm">
+                              {transaction.platform}
+                            </span>
+                          </div>
+                        </TableCell>
+                        <TableCell>
+                          <span
+                            className={
+                              transaction.amount > 0
+                                ? "text-green-600"
+                                : "text-red-600"
+                            }
+                          >
+                            ${Math.abs(transaction.amount).toFixed(2)}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-muted-foreground">
+                            ${transaction.fee.toFixed(2)}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <span
+                            className={`font-medium ${
+                              transaction.net > 0
+                                ? "text-green-600"
+                                : "text-red-600"
+                            }`}
+                          >
+                            ${transaction.net.toFixed(2)}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <span className="text-sm text-muted-foreground">
+                            {transaction.date}
+                          </span>
+                        </TableCell>
+                        <TableCell>
+                          <Badge
+                            variant={
+                              transaction.status === "completed"
+                                ? "default"
+                                : "secondary"
+                            }
+                          >
+                            {transaction.status}
+                          </Badge>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+
+              {/* Mobile Cards */}
+              <div className="sm:hidden space-y-3">
+                {transactions.map((transaction) => (
+                  <div
+                    key={transaction.id}
+                    className="p-4 border rounded-lg shadow-sm"
+                  >
+                    {/* Transaction + Platform */}
+                    <div className="flex items-center justify-between mb-2">
+                      <div className="flex items-center gap-2">
+                        {transaction.type === "sale" ? (
+                          <ArrowUpRight className="h-4 w-4 text-green-500" />
+                        ) : (
+                          <ArrowDownRight className="h-4 w-4 text-red-500" />
+                        )}
+                        <div>
+                          <div className="font-medium text-sm">
+                            {transaction.description}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {transaction.id}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="w-4 h-4 rounded overflow-hidden">
+                          <Image
+                            src={
+                              platformLogos[transaction.platform] ||
+                              "/placeholder.svg"
+                            }
+                            alt={`${transaction.platform} logo`}
+                            width={16}
+                            height={16}
+                            className="object-contain w-full h-full"
+                          />
+                        </div>
+                        <span className="capitalize text-sm">
+                          {transaction.platform}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Amounts */}
+                    <div className="flex justify-between mb-2">
+                      <span
+                        className={
+                          transaction.amount > 0
+                            ? "text-green-600 font-medium"
+                            : "text-red-600 font-medium"
+                        }
+                      >
+                        ${Math.abs(transaction.amount).toFixed(2)}
+                      </span>
+                      <span className="text-muted-foreground">
+                        ${transaction.fee.toFixed(2)}
+                      </span>
+                      <span
+                        className={
+                          transaction.net > 0
+                            ? "text-green-600 font-semibold"
+                            : "text-red-600 font-semibold"
+                        }
+                      >
+                        ${transaction.net.toFixed(2)}
+                      </span>
+                    </div>
+
+                    {/* Date + Status */}
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm text-muted-foreground">
+                        {transaction.date}
+                      </span>
+                      <Badge
+                        variant={
+                          transaction.status === "completed"
+                            ? "default"
+                            : "secondary"
+                        }
+                      >
+                        {transaction.status}
+                      </Badge>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

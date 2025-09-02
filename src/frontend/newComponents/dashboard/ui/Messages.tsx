@@ -411,7 +411,7 @@ export function Messages() {
       </div>
 
       {/* Header with Messages title, Search, and Auto-reply */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border-b flex-shrink-0 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between pt-3 pb-3 pl-4 pr-4 border-b flex-shrink-0 gap-3">
         {/* Title */}
         <h1 className="text-lg font-semibold">Messages</h1>
 
@@ -441,7 +441,7 @@ export function Messages() {
             <DropdownMenuItem>Settings</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
-      </div> 
+      </div>
 
       <div className="flex flex-1 min-h-0">
         {/* Left Sidebar */}
