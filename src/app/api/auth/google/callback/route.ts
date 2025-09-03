@@ -21,7 +21,9 @@ export async function GET(req: Request) {
       });
 
       resolve(
-        NextResponse.redirect(`http://localhost:3000/dashboard?token=${token}`)
+        NextResponse.redirect(
+          `http://localhost:3000/newdashboard?token=${token}`
+        )
       );
     })(req as any, {} as any, resolve as any);
   });
