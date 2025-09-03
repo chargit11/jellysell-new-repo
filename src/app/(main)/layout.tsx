@@ -1,30 +1,28 @@
-import { DashboardLayout } from "@/frontend/newComponents/dashboard";
-import { Inter } from "next/font/google";
-import "../globals.css";
-import { Metadata } from "next";
+"use client";
 
-const inter = Inter({ subsets: ["latin"] });
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import useAuthStore from "@/frontend/stores/authStore/auth";
 
-export const metadata: Metadata = {
-  title: "JellySell",
-  description:
-    "The ultimate crosslisting platform for multi-marketplace sellers",
-  icons: {
-    icon: "/favicon.ico",
-  },
-  generator: "v0.dev",
-};
-
-export default function PrivateLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { user, token } = useAuthStore();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (token && user) {
+      router.push("/dashboard");
+    } else {
+      router.push("/");
+    }
+  }, [token, user, router]);
+
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <DashboardLayout>{children}</DashboardLayout>;
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
