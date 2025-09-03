@@ -1,4 +1,4 @@
-import { Listings } from "@/frontend/newComponents/dashboard";
+import { Listings } from "@/frontend/components/dashboard";
 
 export default function Page() {
   return <Listings />;

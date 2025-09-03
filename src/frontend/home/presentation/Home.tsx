@@ -1,10 +1,10 @@
 "use client";
 
-import { CTASection } from "@/frontend/newComponents/home/CTASectiom";
-import { DashboardPreview } from "@/frontend/newComponents/home/DashboardPreview";
-import { FeaturesSection } from "@/frontend/newComponents/home/FeaturesSection";
-import { HeroSection } from "@/frontend/newComponents/home/HeroSection";
-import { Testimonials } from "@/frontend/newComponents/pricing/Testimonials";
+import { CTASection } from "@/frontend/components/home/CTASectiom";
+import { DashboardPreview } from "@/frontend/components/home/DashboardPreview";
+import { FeaturesSection } from "@/frontend/components/home/FeaturesSection";
+import { HeroSection } from "@/frontend/components/home/HeroSection";
+import { Testimonials } from "@/frontend/components/pricing/Testimonials";
 // import { TweetTestimonials } from "@/frontend/newComponents/home/TweetTestimonials";
 import React from "react";
 
@@ -18,7 +18,7 @@ const Home = () => {
       <HeroSection onGetStarted={handleGetStarted} />
       <DashboardPreview />
       <FeaturesSection />
-       <Testimonials />
+      <Testimonials />
       <CTASection onGetStarted={handleGetStarted} />
     </div>
   );

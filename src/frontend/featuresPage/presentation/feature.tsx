@@ -1,10 +1,10 @@
 "use client";
 
-import { BenefitsSection } from "@/frontend/newComponents/features/BenefitsSection";
-import { CTASection } from "@/frontend/newComponents/features/CTASection";
-import { DashboardSection } from "@/frontend/newComponents/features/DashboardSection";
-import { HeroSection } from "@/frontend/newComponents/features/HeroSection";
-import { PlatformsSection } from "@/frontend/newComponents/features/PlatformSection";
+import { BenefitsSection } from "@/frontend/components/features/BenefitsSection";
+import { CTASection } from "@/frontend/components/features/CTASection";
+import { DashboardSection } from "@/frontend/components/features/DashboardSection";
+import { HeroSection } from "@/frontend/components/features/HeroSection";
+import { PlatformsSection } from "@/frontend/components/features/PlatformSection";
 import React from "react";
 
 const feature = () => {

@@ -4,7 +4,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
-import { SignInModal } from "@/frontend/newComponents/login/SignInModal";
+import { SignInModal } from "@/frontend/components/login/SignInModal";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);

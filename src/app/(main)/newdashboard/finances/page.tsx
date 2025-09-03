@@ -1,4 +1,4 @@
-import { Finances } from "@/frontend/newComponents/dashboard";
+import { Finances } from "@/frontend/components/dashboard";
 
 export default function Page() {
   return <Finances />;

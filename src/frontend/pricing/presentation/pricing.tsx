@@ -1,12 +1,12 @@
 // import React from 'react'
 "use client";
-import { CTASsection } from "@/frontend/newComponents/pricing/CTASection";
-import { FAQSection } from "@/frontend/newComponents/pricing/FAQSection";
-import { HeroSection } from "@/frontend/newComponents/pricing/HeroSection";
-import { HowItWorks } from "@/frontend/newComponents/pricing/HowItWorks";
-import { MainPricingCard } from "@/frontend/newComponents/pricing/MainPricingCard";
-import { PricingExamples } from "@/frontend/newComponents/pricing/PricingExamples";
-import { Testimonials } from "@/frontend/newComponents/pricing/Testimonials";
+import { CTASsection } from "@/frontend/components/pricing/CTASection";
+import { FAQSection } from "@/frontend/components/pricing/FAQSection";
+import { HeroSection } from "@/frontend/components/pricing/HeroSection";
+import { HowItWorks } from "@/frontend/components/pricing/HowItWorks";
+import { MainPricingCard } from "@/frontend/components/pricing/MainPricingCard";
+import { PricingExamples } from "@/frontend/components/pricing/PricingExamples";
+import { Testimonials } from "@/frontend/components/pricing/Testimonials";
 
 const pricing = () => {
   const handleGetStarted = () => {

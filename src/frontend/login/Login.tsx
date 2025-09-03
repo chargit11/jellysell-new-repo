@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { SignInModal } from "../newComponents/login/SignInModal";
+import { SignInModal } from "../components/login/SignInModal";
 import { Button } from "@/frontend/core/components/ui/button";
 
 const Login = () => {

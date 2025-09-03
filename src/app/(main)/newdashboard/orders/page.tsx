@@ -1,4 +1,4 @@
-import { Orders } from "@/frontend/newComponents/dashboard";
+import { Orders } from "@/frontend/components/dashboard";
 
 export default function Page() {
   return <Orders />;

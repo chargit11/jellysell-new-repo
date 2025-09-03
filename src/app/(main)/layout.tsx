@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import useAuthStore from "@/frontend/stores/authStore/auth";
-import { DashboardLayout } from "@/frontend/newComponents/dashboard";
+import { DashboardLayout } from "@/frontend/components/dashboard";
 import { Inter } from "next/font/google";
 import "../globals.css";
 
