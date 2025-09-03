@@ -1,5 +1,5 @@
-import { DashboardView } from "@/frontend/components/dashboard-view";
+// import { DashboardView } from "@/frontend/components/dashboard-view";
 
-export default function DashboardPage() {
-  return <DashboardView />;
-}
+// export default function DashboardPage() {
+//   return <DashboardView />;
+// }
