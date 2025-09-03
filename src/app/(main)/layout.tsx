@@ -14,7 +14,7 @@ export default function RootLayout({
 
   useEffect(() => {
     if (token && user) {
-      router.push("/dashboard");
+      router.push("/newdashboard");
     } else {
       router.push("/");
     }
