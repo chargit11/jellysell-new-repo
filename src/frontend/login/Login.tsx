@@ -5,7 +5,7 @@ import { SignInModal } from "../components/login/SignInModal";
 import { Button } from "@/frontend/core/components/ui/button";
 
 const Login = () => {
-  const [isOpen, setIsOpen] = useState(true); // default open for demo
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
     <div>
