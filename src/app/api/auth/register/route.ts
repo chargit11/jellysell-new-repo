@@ -1,10 +1,11 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import dbConnect from "@/backend/lib/db";
-import UserModel from "@/backend/lib/models/User.model";
+// import dbConnect from "@/backend/lib/db";
+// import UserModel from "@/backend/lib/models/User.model";
+import prisma from "@/backend/lib/prisma";
 
 export async function POST(req: Request) {
-  await dbConnect();
+  // await dbConnect();
   try {
     const { username, email, password } = await req.json();
 
@@ -14,21 +15,13 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
-
-    const hashedPassword = await bcrypt.hash(password, 12);
-    const user = await UserModel.create({
-      username,
-      email,
-      password: hashedPassword,
+    const existingUser = await prisma.user.findFirst({
+      where: {
+        OR: [{ email }, { username }],
+      },
     });
 
-    const { password: _, ...userResponse } = user.toObject();
-    return NextResponse.json(
-      { success: true, data: userResponse },
-      { status: 201 }
-    );
-  } catch (error: any) {
-    if (error.code === 11000) {
+    if (existingUser) {
       return NextResponse.json(
         {
           success: false,
@@ -38,6 +31,23 @@ export async function POST(req: Request) {
         { status: 400 }
       );
     }
+    const hashedPassword = await bcrypt.hash(password, 12);
+
+    const user = await prisma.user.create({
+      data: {
+        username,
+        email,
+        password: hashedPassword,
+      },
+    });
+
+    const { password: _, ...userResponse } = user;
+
+    return NextResponse.json(
+      { success: true, data: userResponse },
+      { status: 201 }
+    );
+  } catch (error: any) {
     return NextResponse.json(
       { success: false, error: error.message, data: null },
       { status: 500 }

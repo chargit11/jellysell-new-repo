@@ -16,12 +16,14 @@ export async function GET(req: Request) {
         );
       }
 
-      const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, {
+      const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, {
         expiresIn: "1d",
       });
 
       resolve(
-        NextResponse.redirect(`http://localhost:3000/dashboard?token=${token}`)
+        NextResponse.redirect(
+          `http://localhost:3000/newdashboard?token=${token}`
+        )
       );
     })(req as any, {} as any, resolve as any);
   });

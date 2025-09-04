@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import passport from "@/backend/lib/passport";
 import jwt from "jsonwebtoken";
-import { User } from "@/backend/lib/models/User.model";
+import { User } from "@prisma/client";
+// import { User } from "@/backend/lib/models/User.model";
 
 const JWT_SECRET = process.env.JWT_SECRET || "supersecret";
 
@@ -36,7 +37,7 @@ export async function POST(req: Request) {
           );
         }
 
-        const token = jwt.sign({ id: user._id }, JWT_SECRET, {
+        const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, {
           expiresIn: "1d",
         });
 
@@ -44,7 +45,7 @@ export async function POST(req: Request) {
           NextResponse.json({
             success: true,
             token,
-            user: { id: user._id, email: user.email, username: user.username },
+            user: { id: user.id, email: user.email, username: user.username },
           })
         );
       }

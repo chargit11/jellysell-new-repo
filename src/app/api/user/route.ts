@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
-import dbConnect from "@/backend/lib/db";
-import UserModel from "@/backend/lib/models/User.model";
+// import dbConnect from "@/backend/lib/db";
+// import UserModel from "@/backend/lib/models/User.model";
+import prisma from "@/backend/lib/prisma";
 import { authenticateJWT } from "@/backend/lib/authMiddleware";
 
 export async function GET(req: Request) {
@@ -10,7 +11,7 @@ export async function GET(req: Request) {
     return err as NextResponse;
   }
 
-  await dbConnect();
+  // await dbConnect();
 
   try {
     const { searchParams } = new URL(req.url);
@@ -18,13 +19,21 @@ export async function GET(req: Request) {
     const limit = parseInt(searchParams.get("limit") || "10", 10);
 
     const skip = (page - 1) * limit;
-    const total = await UserModel.countDocuments();
+    const total = await prisma.user.count();
 
-    const users = await UserModel.find()
-      .select("-password")
-      .skip(skip)
-      .limit(limit)
-      .sort({ createdAt: -1 });
+    const users = await prisma.user.findMany({
+      skip,
+      take: limit,
+      orderBy: { createdAt: "desc" },
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        role: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
 
     const totalPages = Math.ceil(total / limit);
 
