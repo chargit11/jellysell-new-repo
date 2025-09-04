@@ -2,15 +2,14 @@ import { NextResponse } from "next/server";
 import passport from "@/backend/lib/passport";
 import jwt from "jsonwebtoken";
 import { User } from "@prisma/client";
-// import { User } from "@/backend/lib/models/User.model";
 
 const JWT_SECRET = process.env.JWT_SECRET || "supersecret";
 
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<Response> {
   const body = await req.json();
   const { email, password } = body;
 
-  return new Promise((resolve) => {
+  return new Promise<Response>((resolve) => {
     passport.authenticate(
       "local",
       { session: false },
