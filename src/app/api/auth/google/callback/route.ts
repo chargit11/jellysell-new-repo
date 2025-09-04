@@ -4,9 +4,9 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "supersecret";
 
-export async function GET(req: Request) {
-  return new Promise((resolve) => {
-    passport.authenticate("google", { session: false }, (err, user, info) => {
+export async function GET(req: Request): Promise<Response> {
+  return new Promise<Response>((resolve) => {
+    passport.authenticate("google", { session: false }, (err, user) => {
       if (err || !user) {
         return resolve(
           NextResponse.json(
@@ -19,12 +19,9 @@ export async function GET(req: Request) {
       const token = jwt.sign({ id: user.id, role: user.role }, JWT_SECRET, {
         expiresIn: "1d",
       });
+      const origin = process.env.NEXT_PUBLIC_APP_URL || new URL(req.url).origin;
 
-      resolve(
-        NextResponse.redirect(
-          `http://localhost:3000/newdashboard?token=${token}`
-        )
-      );
-    })(req as any, {} as any, resolve as any);
+      resolve(NextResponse.redirect(`${origin}/newdashboard?token=${token}`));
+    })(req as any, {} as any, () => {});
   });
 }
