@@ -41,13 +41,13 @@ export function SignInModal({ isOpen, onClose, onSignIn }: SignInModalProps) {
     }
   };
 
-  const handleGoogleSignIn = () => {
-    // try {
-    //   window.location.href = "/api/auth/google";
-    // } catch (error) {
-    //   console.error("Redirect failed:", error);
-    // }
-  };
+  // const handleGoogleSignIn = () => {
+  //   try {
+  //     window.location.href = "/api/auth/google";
+  //   } catch (error) {
+  //     console.error("Redirect failed:", error);
+  //   }
+  // };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -150,7 +150,7 @@ export function SignInModal({ isOpen, onClose, onSignIn }: SignInModalProps) {
           <Button
             variant="outline"
             className="w-full h-10 sm:h-12 text-gray-700 border-gray-300 hover:bg-gray-50 flex items-center justify-center text-sm sm:text-base"
-            onClick={handleGoogleSignIn}
+            // onClick={handleGoogleSignIn}
           >
             <svg className="w-5 h-5 mr-3" viewBox="0 0 24 24">
               <path
