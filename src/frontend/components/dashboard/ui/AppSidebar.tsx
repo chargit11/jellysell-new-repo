@@ -74,7 +74,9 @@ const menuItems = [
 ];
 
 interface AppSidebarProps {
-  // onLogout: () => void;
+  activeView: string;
+  setActiveView: (view: string) => void;
+  onLogout: () => void;
   unreadMessagesCount?: number;
   pendingOrdersCount?: number;
   outOfStockCount?: number;
