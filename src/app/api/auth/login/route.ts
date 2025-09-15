@@ -30,7 +30,7 @@ export async function POST(req: Request): Promise<Response> {
         if (!user) {
           return resolve(
             NextResponse.json(
-              { success: false, error: info?.message || "Invalid login" },
+              { success: false, error: "Invalid email or password" },
               { status: 401 }
             )
           );

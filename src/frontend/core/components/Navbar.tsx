@@ -5,10 +5,11 @@ import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { Menu, X } from "lucide-react";
 import { SignInModal } from "@/frontend/components/login/SignInModal";
-
+import { SignUpModal } from "@/frontend/components/signup/Signup";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
 
   return (
     <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
@@ -38,8 +39,11 @@ const Navbar = () => {
             <Button variant="outline" onClick={() => setIsLoginOpen(true)}>
               Sign In
             </Button>
-            <Button className="bg-purple-600 hover:bg-purple-700" asChild>
-              <Link href="/signup">Get Started</Link>
+            <Button
+              className="bg-purple-600 hover:bg-purple-700"
+              onClick={() => setIsSignupOpen(true)}
+            >
+              Get Started
             </Button>
           </div>
 
@@ -55,7 +59,7 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Dropdown */}
+        {/* Mobile Dropdown*/}
         {isOpen && (
           <div className="md:hidden mt-4 flex flex-col gap-2">
             <Button variant="ghost" asChild>
@@ -68,18 +72,26 @@ const Navbar = () => {
             <Button variant="outline" onClick={() => setIsLoginOpen(true)}>
               Sign In
             </Button>
-            <Button className="bg-purple-600 hover:bg-purple-700" asChild>
-              <Link href="/signup">Get Started</Link>
+            <Button
+              className="bg-purple-600 hover:bg-purple-700"
+              asChild
+              onClick={() => setIsSignupOpen(true)}
+            >
+              Get Started
             </Button>
           </div>
         )}
       </div>
-
-      {/* Sign In Modal */}
+      {/* double routing causes issues so fallbacks to one time route  */}
       <SignInModal
         isOpen={isLoginOpen}
         onClose={() => setIsLoginOpen(false)}
         onSignIn={() => console.log("Signed in!")}
+      />
+      <SignUpModal
+        isOpen={isSignupOpen}
+        onClose={() => setIsSignupOpen(false)}
+        onSignUp={() => console.log("Registered!")}
       />
     </header>
   );
